@@ -9,10 +9,13 @@ namespace SnapperCodingChallenge._Console
         static void Main(string[] args)
         {
             //1. Convert the raw "Snapper" data into a 2d array of characters            
-            char[,] array = ProceduralHelpers.ConvertTxtFileInto2DArray(@"C:\Users\pcox\Desktop\git\SnapperCodingChallenge\Starship.blf");
+            char[,] array = ProceduralHelpers.ConvertTxtFileInto2DArray(@"C:\Users\pcox\Desktop\git\SnapperCodingChallenge\test.txt");
+            array.Print2DCharacterArrayToConsole();
 
-            //2. Print array to console
-            array.Print2DArrayToConsole();
+            Console.WriteLine();
+
+            var trimmedArray = ProceduralHelpers.TrimArray(array, 'X');
+            trimmedArray.Print2DCharacterArrayToConsole();
         }
     }
 }

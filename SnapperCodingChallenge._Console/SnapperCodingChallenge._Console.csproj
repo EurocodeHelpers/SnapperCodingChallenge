@@ -10,4 +10,16 @@
     <ProjectReference Include="..\SnapperCodingChallenge.Core\SnapperCodingChallenge.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Starship.blf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData.blf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
