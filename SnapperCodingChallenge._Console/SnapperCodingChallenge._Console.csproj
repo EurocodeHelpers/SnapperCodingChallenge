@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,15 +11,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Starship.blf">
+    <None Update="Supplied Files DONOTEDIT\NuclearTorpedo.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="test.txt">
+    <None Update="Supplied Files DONOTEDIT\Starship.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestData.blf">
+    <None Update="Supplied Files DONOTEDIT\TestData.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Test Files\perimeterTest.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Test Files\test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Supplied Files DONOTEDIT\" />
   </ItemGroup>
 
 </Project>
