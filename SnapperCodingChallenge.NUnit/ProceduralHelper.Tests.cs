@@ -1,5 +1,8 @@
 using NUnit.Framework;
 using SnapperCodingChallenge._Console.Procedural;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SnapperCodingChallenge.NUnit
 {
@@ -10,7 +13,9 @@ namespace SnapperCodingChallenge.NUnit
         {
         }
 
-        private string filePath = @"C:\Users\pcox\Desktop\git\SnapperCodingChallenge\SnapperCodingChallenge.NUnit\UnitTesting_ProceduralHelpers DONOTMODIFY.txt";
+        private string filePath1 = @"Datafiles\UnitTestFile1.txt";
+        private string filePath2 = @"Datafiles\UnitTestFile2.txt";
+
         private char[,] untrimmedarray = new char[10, 11]
         {
                 {'X','X','X','X','X','X','X','X','X','X','X'},
@@ -40,7 +45,7 @@ namespace SnapperCodingChallenge.NUnit
             var expected = untrimmedarray;
 
             var actual = 
-                ProceduralHelpers.ConvertTxtFileInto2DArray(filePath);
+                ProceduralHelpers.ConvertTxtFileInto2DArray(filePath1);
 
             Assert.AreEqual(expected, actual);
         }
@@ -55,5 +60,6 @@ namespace SnapperCodingChallenge.NUnit
 
             Assert.AreEqual(expected, actual);
         }
+
     }
 } 
