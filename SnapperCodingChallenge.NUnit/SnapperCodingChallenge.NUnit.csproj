@@ -16,4 +16,19 @@
     <ProjectReference Include="..\SnapperCodingChallenge.Core\SnapperCodingChallenge.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Datafiles\UnitTestFile1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Datafiles\UnitTestFile2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Datafiles\UnitTesting_ProceduralHelpers DONOTMODIFY.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Datafiles\UnitTesting_ProceduralHelpers_CalculateInternalShapeCoordinates DONOTMODIFY.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
