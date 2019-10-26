@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge.Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapperCodingChallenge._Console", "SnapperCodingChallenge._Console\SnapperCodingChallenge._Console.csproj", "{7D8E4CE1-BB3F-4080-8662-2383071009C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapperCodingChallenge.NUnit", "SnapperCodingChallenge.NUnit\SnapperCodingChallenge.NUnit.csproj", "{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{7D8E4CE1-BB3F-4080-8662-2383071009C2}.Release|x64.Build.0 = Release|Any CPU
 		{7D8E4CE1-BB3F-4080-8662-2383071009C2}.Release|x86.ActiveCfg = Release|Any CPU
 		{7D8E4CE1-BB3F-4080-8662-2383071009C2}.Release|x86.Build.0 = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Debug|x86.Build.0 = Debug|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|x64.Build.0 = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
