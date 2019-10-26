@@ -8,7 +8,7 @@ namespace SnapperCodingChallenge._Console.Procedural
     public static class ProceduralHelpers
     {
         /// <summary>
-        /// Converts the contents of a txt file (including blank rows into 2D array [row,column]
+        /// Parses a text file and outputs a 2D character array, including any rows/columns with empty space [row,col]
         /// </summary>
         /// <param name="txtFile">The path of the txt file.</param>
         /// <returns></returns>
@@ -34,7 +34,7 @@ namespace SnapperCodingChallenge._Console.Procedural
                 //Add each element in the char array to the row under consideration. 
                 for (int j = 0; j < charArray.Length; j++)
                 {
-                    array[i,j] = charArray[j];
+                    array[i, j] = charArray[j];
                 }
             }
 
@@ -42,9 +42,9 @@ namespace SnapperCodingChallenge._Console.Procedural
         }
 
         /// <summary>
-        /// Prints a 2D array of characters to the console.
+        /// Prints a 2D array to the console, assuming following notation [row,col]
         /// </summary>
-        /// <param name="array">The 2D array of characters to be printed to the console.</param>
+        /// <param name="array">The 2D array of characters to be printed to the console [row,col].</param>
         public static void Print2DCharacterArrayToConsole(this char[,] array)
         {
             int numberOfRows = array.GetLength(0);
@@ -61,16 +61,17 @@ namespace SnapperCodingChallenge._Console.Procedural
         }
 
         /// <summary>
-        /// Determines whether all the cells in a given col of a 2d array of characters contain any non-white space or ''
+        /// Verifies whether a given column of a 2D matrix [row,col] includes only blank characters
         /// </summary>
-        /// <param name="array">The array to check. </param>
-        /// <param name="col">The col number (0-based).</param>
+        /// <param name="array">The 2D array to check. </param>
+        /// <param name="column">The column number (0-based).</param>
+        /// <param name="character">The character being checked agaisnt which is considered "blank".</param>
         /// <returns></returns>
-        public static bool CheckIfColumnIsBlank(char[,] array, int col, char ch)
+        public static bool CheckIfColumnIsBlank(char[,] array, int column, char character)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                if (array[i, col] != ch)
+                if (array[i, column] != character)
                 {
                     return false;
                 }
@@ -79,16 +80,17 @@ namespace SnapperCodingChallenge._Console.Procedural
         }
 
         /// <summary>
-        /// Determines whether all the cells in a given row of a 2d array of characters contain any non-white space or ''
+        /// Verifies whether a given row of a 2D matrix [row,col] includes only blank characters
         /// </summary>
-        /// <param name="array">The array to check. </param>
+        /// <param name="array">The 2D array to check. </param>
         /// <param name="row">The row number (0-based).</param>
+        /// <param name="character">The character being checked agaisnt which is considered "blank".</param>
         /// <returns></returns>
-        public static bool CheckIfRowIsBlank(char[,] array, int row, char ch)
+        public static bool CheckIfRowIsBlank(char[,] array, int row, char character)
         {
             for (int i = 0; i < array.GetLength(1); i++)
             {
-                if (array[row, i] != ch)
+                if (array[row, i] != character)
                 {
                     return false;
                 }
@@ -96,6 +98,7 @@ namespace SnapperCodingChallenge._Console.Procedural
             return true;
         }
 
+        //TODO: Convert this into an extension method...
         /// <summary>
         /// Removes any blank rows and columns before/after any non blank ones.
         /// </summary>
@@ -140,12 +143,54 @@ namespace SnapperCodingChallenge._Console.Procedural
             {
                 for (int j = 0; j < numberOfColsReqd; j++)
                 {
-                    trimmedArray[i,j] = array[i + minNonBlankRow, j + minNonBlankCol];
+                    trimmedArray[i, j] = array[i + minNonBlankRow, j + minNonBlankCol];
                 }
             }
 
             return trimmedArray;
         }
+
+        //A method that calculates the characters inside a 2D array that are to be checked. 
+        public static List<Tuple<int, int>> CalculateCoordinatesInsidePerimeterOfObject(char[,] array, char blankCharacter)
+        {
+           var coords = new List<Tuple<int, int>>();
+
+            //1. For each row, get first and last non-blank index maintaining any blank chars sandwiched between first and last. 
+
+            //For each row in the array
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                List<int> nonBlankCells = new List<int>();
+
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    if (array[i,j] != blankCharacter)
+                    {
+                        nonBlankCells.Add(j);
+                    }                    
+                }
+
+                int xMinPosition = nonBlankCells.Min();
+                int xMaxPosition = nonBlankCells.Max();
+
+                for (int k = xMinPosition; k <= xMaxPosition; k++)
+                {
+                    coords.Add(new Tuple<int, int>(i, k));
+                }
+            }
+
+            return coords;
+        }
+
+        //A method that prints a list of tuples(x,y) to the console. 
+        public static void PrintListOfTuplesToConsole(List<Tuple<int, int>> coords)
+        {
+            foreach (Tuple<int,int> tuple in coords)
+            {
+                Console.WriteLine($"{tuple.Item1},{tuple.Item2}");
+            }
+        }
+
 
 
 
