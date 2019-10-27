@@ -6,17 +6,15 @@ using System.Text;
 
 namespace SnapperCodingChallenge.NUnit
 {
-    public class SubAssemblyTests
+    public class SubArrayTests
     {
         [SetUp]
         public void Setup()
         {
         }
 
-
-
         [Test]
-        public void Verify_SubAssembly1()
+        public void Verify_SubArray1()
         {
             char[,] arrayMain = new char[3, 4]
             {
@@ -38,7 +36,7 @@ namespace SnapperCodingChallenge.NUnit
         }
 
         [Test]
-        public void Verify_SubAssembly2()
+        public void Verify_SubArray2()
         {
             char[,] arrayMain = new char[3, 4]
             {

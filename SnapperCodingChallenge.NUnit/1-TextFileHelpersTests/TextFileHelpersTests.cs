@@ -32,7 +32,7 @@ namespace SnapperCodingChallenge.NUnit.TextFileHelpersTests
                 };
 
             var actual =
-                ProceduralHelpers.ConvertTxtFileInto2DArray(@"TextFileHelpers-TestFile1.txt");
+                ProceduralHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile1.txt");
 
             Assert.AreEqual(expected, actual);
         }
@@ -50,7 +50,7 @@ namespace SnapperCodingChallenge.NUnit.TextFileHelpersTests
                 };
 
             var actual =
-                ProceduralHelpers.ConvertTxtFileInto2DArray(@"TextFileHelpers-TestFile2.txt");
+                ProceduralHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile2.txt");
 
             Assert.AreEqual(expected, actual);
         }

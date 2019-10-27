@@ -25,6 +25,8 @@ namespace SnapperCodingChallenge.NUnit.GetCoordinatesTests
 
               };
 
+            //Number of tuples expected = 1 + 3 + 5 + 1 = 10No. elements. 
+
             var expected = new List<Tuple<int, int>>
             {
                 new Tuple<int,int>(0,2),
