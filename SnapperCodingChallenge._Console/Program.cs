@@ -9,6 +9,7 @@ namespace SnapperCodingChallenge._Console
     {
         static void Main(string[] args)
         {
+<<<<<<< HEAD
             char[,] map = new char[6, 3]
             {
                     {'X','X', '0'},
@@ -18,6 +19,11 @@ namespace SnapperCodingChallenge._Console
                     {'0','0', 'X'},
                     {'0','0', 'X'},
             };
+=======
+            //1. Convert the raw "Snapper" data into a 2d array of characters            
+            char[,] array = ProceduralHelpers.ConvertTxtFileInto2DArray(@"Test Files/perimeterTest.txt");
+            array.Print2DCharacterArrayToConsole();
+>>>>>>> master
 
             char[,] target = new char[2, 2]
             {
@@ -32,6 +38,7 @@ namespace SnapperCodingChallenge._Console
 
         //Cheat method to get static list of tuples...
 
+<<<<<<< HEAD
         public static void PrintTupleDataToConsole(List<Tuple<int,int>> tuples)
         {
             Console.WriteLine("var coords = new List<Tuple<int,int>>(){");
@@ -43,6 +50,27 @@ namespace SnapperCodingChallenge._Console
                 Console.WriteLine(";");
         }
 
+=======
+            var coords = ProceduralHelpers.CalculateCoordinatesInsidePerimeterOfObject(trimmedArray, ' ');
+            ProceduralHelpers.PrintListOfTuplesToConsole(coords);
+
+            PrintTupleDataToConsole(coords);
+        }
+
+        //Cheat method to get static list of tuples...
+
+        public static void PrintTupleDataToConsole(List<Tuple<int,int>> tuples)
+        {
+            Console.WriteLine("var coords = new List<Tuple<int,int>>(){");
+
+            foreach (Tuple<int,int> tuple in tuples)
+            {
+                Console.WriteLine($"new Tuple<int,int>({tuple.Item1},{tuple.Item2}),");
+            }
+                Console.WriteLine("};");
+        }
+
+>>>>>>> master
 
 
     }
