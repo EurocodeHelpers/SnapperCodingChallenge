@@ -200,13 +200,17 @@ namespace SnapperCodingChallenge._Console.Procedural
                     }
                 }
 
-                int xMinPosition = nonBlankCells.Min();
-                int xMaxPosition = nonBlankCells.Max();
-
-                for (int k = xMinPosition; k <= xMaxPosition; k++)
+                //If number of cells != 0 add a tuple for each x-ordinate.
+                if (nonBlankCells.Count != 0)
                 {
-                    coords.Add(new Tuple<int, int>(i, k));
-                }
+                    int xMinPosition = nonBlankCells.Min();
+                    int xMaxPosition = nonBlankCells.Max();
+
+                    for (int k = xMinPosition; k <= xMaxPosition; k++)
+                    {
+                        coords.Add(new Tuple<int, int>(i, k));
+                    }
+                }                
             }
 
             return coords;
@@ -277,7 +281,7 @@ namespace SnapperCodingChallenge._Console.Procedural
 
             double accuracy = matches / (matches + differences);
 
-            return (accuracy > minimumAccuracy);
+            return (accuracy >= minimumAccuracy);
         }
 
 
@@ -314,10 +318,9 @@ namespace SnapperCodingChallenge._Console.Procedural
             return subArray;
         }
 
-
-        public static int CalculateNumberofIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
+        public static List<Tuple<int, int>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
         {
-            int targetsIdentified = 0;
+            var coordsOfTarget = new List<Tuple<int, int>>();
 
             int mapRows = map.GetLength(0);
             int mapCols = map.GetLength(1);
@@ -346,17 +349,18 @@ namespace SnapperCodingChallenge._Console.Procedural
                     Print2DCharacterArrayToConsole(slice);
 
                     bool targetIdentified =
-                        VerifyArraysAreIdenticalAgainstKnownCoordinates(slice, target, coordinates, minimumAccuracy);
+                        VerifyArraysAreIdenticalAgainstKnownCoordinates(target, slice, coordinates, minimumAccuracy);
 
                     if (targetIdentified == true)
                     {
-                        targetsIdentified++;
                         Console.WriteLine($"Target Identified!");
+
+                        coordsOfTarget.Add(new Tuple<int, int>(j + targetRows / 2, i + targetCols));
                     }
                 }
             }
 
-            return targetsIdentified;
+            return coordsOfTarget;
         }
     }
 }
