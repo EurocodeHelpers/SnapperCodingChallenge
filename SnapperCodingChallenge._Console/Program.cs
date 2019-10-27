@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using SnapperCodingChallenge._Console.Procedural;
+using static SnapperCodingChallenge._Console.Procedural.ProceduralHelpers;
 
 namespace SnapperCodingChallenge._Console
 {
@@ -9,21 +9,25 @@ namespace SnapperCodingChallenge._Console
     {
         static void Main(string[] args)
         {
-            //1. Convert the raw "Snapper" data into a 2d array of characters            
-            char[,] array = ProceduralHelpers.ConvertTxtFileInto2DArray(@"Test Files/perimeterTest.txt");
-            array.Print2DCharacterArrayToConsole();
+            char[,] map = new char[6, 3]
+            {
+                    {'X','X', '0'},
+                    {'X','X', '0'},
+                    {'0','0', '0'},
+                    {'0','0', '0'},
+                    {'0','0', 'X'},
+                    {'0','0', 'X'},
+            };
 
-            Console.WriteLine();
+            char[,] target = new char[2, 2]
+            {
+                    {'X','X'},
+                    {'X','X'},
+            };
 
-            var trimmedArray = ProceduralHelpers.TrimArray(array, '0');
-            trimmedArray.Print2DCharacterArrayToConsole();
+            int targetsIdentified = CalculateNumberofIdentifiedTargets(map, target, 1, '0');
 
-            Console.WriteLine();
-
-            var coords = ProceduralHelpers.CalculateCoordinatesInsidePerimeterOfObject(trimmedArray, ' ');
-            ProceduralHelpers.PrintListOfTuplesToConsole(coords);
-
-            PrintTupleDataToConsole(coords);
+            Console.WriteLine(targetsIdentified);
         }
 
         //Cheat method to get static list of tuples...
@@ -36,7 +40,7 @@ namespace SnapperCodingChallenge._Console
             {
                 Console.WriteLine($"new Tuple<int,int>({tuple.Item1},{tuple.Item2}),");
             }
-                Console.WriteLine("};");
+                Console.WriteLine(";");
         }
 
 
