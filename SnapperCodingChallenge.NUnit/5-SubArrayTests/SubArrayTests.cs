@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SnapperCodingChallenge.Core;
+using System;
 
 namespace SnapperCodingChallenge.NUnit
 {
