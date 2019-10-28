@@ -1,10 +1,7 @@
 ﻿using NUnit.Framework;
-using SnapperCodingChallenge._Console.Procedural;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SnapperCodingChallenge.Core;
 
-namespace SnapperCodingChallenge.NUnit._6_IdentifyTargetTests
+namespace SnapperCodingChallenge.NUnit
 {
     public class IdentifyTargetTests
     {

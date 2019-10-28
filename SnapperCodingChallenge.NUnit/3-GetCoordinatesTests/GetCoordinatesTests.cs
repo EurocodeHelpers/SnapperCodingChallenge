@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
-using SnapperCodingChallenge._Console.Procedural;
+using SnapperCodingChallenge.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SnapperCodingChallenge.NUnit.GetCoordinatesTests
+namespace SnapperCodingChallenge.NUnit
 {
     class GetCoordinatesTests
     {

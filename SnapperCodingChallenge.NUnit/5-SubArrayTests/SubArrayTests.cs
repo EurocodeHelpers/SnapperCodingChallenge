@@ -1,8 +1,5 @@
 ﻿using NUnit.Framework;
-using SnapperCodingChallenge._Console.Procedural;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SnapperCodingChallenge.Core;
 
 namespace SnapperCodingChallenge.NUnit
 {
@@ -30,7 +27,7 @@ namespace SnapperCodingChallenge.NUnit
             };
 
             var actual =
-                ProceduralHelpers.GetSubArrayFromArray(arrayMain, 0, 0, 2, 2);
+                MultiDimensionalArrayHelpers.GetSubArrayFromArray(arrayMain, 0, 0, 2, 2);
 
             Assert.AreEqual(expected, actual);
         }
@@ -52,7 +49,7 @@ namespace SnapperCodingChallenge.NUnit
             };
 
             var actual =
-                ProceduralHelpers.GetSubArrayFromArray(arrayMain, 3, 1, 2, 1);
+                MultiDimensionalArrayHelpers.GetSubArrayFromArray(arrayMain, 3, 1, 2, 1);
 
             Assert.AreEqual(expected, actual);
         }

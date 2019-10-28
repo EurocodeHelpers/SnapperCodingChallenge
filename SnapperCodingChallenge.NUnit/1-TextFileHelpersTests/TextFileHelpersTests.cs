@@ -1,10 +1,7 @@
 ﻿using NUnit.Framework;
-using SnapperCodingChallenge._Console.Procedural;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SnapperCodingChallenge.Core;
 
-namespace SnapperCodingChallenge.NUnit.TextFileHelpersTests
+namespace SnapperCodingChallenge.NUnit
 {
     public class TextFileHelpersTests
     {
@@ -32,7 +29,7 @@ namespace SnapperCodingChallenge.NUnit.TextFileHelpersTests
                 };
 
             var actual =
-                ProceduralHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile1.txt");
+                TextFileHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile1.txt");
 
             Assert.AreEqual(expected, actual);
         }
@@ -50,7 +47,7 @@ namespace SnapperCodingChallenge.NUnit.TextFileHelpersTests
                 };
 
             var actual =
-                ProceduralHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile2.txt");
+                TextFileHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile2.txt");
 
             Assert.AreEqual(expected, actual);
         }
