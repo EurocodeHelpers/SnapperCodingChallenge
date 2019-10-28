@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SnapperCodingChallenge.Core.Procedural
+namespace SnapperCodingChallenge.Core
 {
     public class TextFileHelpers
     {
