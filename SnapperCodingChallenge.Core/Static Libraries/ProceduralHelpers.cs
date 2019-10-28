@@ -114,9 +114,9 @@ namespace SnapperCodingChallenge.Core
 
        
 
-        public static List<Tuple<int, int>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
+        public static List<Tuple<double, double>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
         {
-            var coordsOfTarget = new List<Tuple<int, int>>();
+            var coordsOfTarget = new List<Tuple<double, double>>();
 
             int mapRows = map.GetLength(0);
             int mapCols = map.GetLength(1);
@@ -151,7 +151,7 @@ namespace SnapperCodingChallenge.Core
                     {
                         Console.WriteLine($"Target Identified!");
 
-                        coordsOfTarget.Add(new Tuple<int, int>(j + targetRows / 2, i + targetCols));
+                        coordsOfTarget.Add(TupleHelpers.GetSubArrayCentroid(map, j, i, targetRows, targetCols));
                     }
                 }
             }
