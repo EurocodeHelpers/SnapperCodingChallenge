@@ -43,39 +43,38 @@ namespace SnapperCodingChallenge.NUnit
             Assert.AreEqual(expected, actual.Count);
         }
 
-        [Test]
-        public void Verify_IdentifyTarget2()
-        {
-            char[,] map = new char[,]
-            {
-                {'X','X',' ',' '},
-                {'X','X',' ',' '},
-                {' ',' ',' ',' '},
-                {' ',' ',' ',' '},
-                {' ',' ','X','X'},
-                {' ',' ','X','X'},
-            };
+        //[Test]
+        //public void Verify_IdentifyTarget2()
+        //{
+        //    char[,] map = new char[,]
+        //    {
+        //        {'X','X',' ',' '},
+        //        {'X','X',' ',' '},
+        //        {' ',' ',' ',' '},
+        //        {' ',' ',' ',' '},
+        //        {' ',' ','X','X'},
+        //        {' ',' ','X','X'},
+        //    };
 
-            char[,] target = new char[,]
-            {
-                {'X','X'},
-                {'X','X'},
-            };
+        //    char[,] target = new char[,]
+        //    {
+        //        {'X','X'},
+        //        {'X','X'},
+        //    };
 
-            //Using an accuracy of 100% there are evidently only 2 available targets.
-            //using a fuzzy approach, because we are overlapping a 50% minumum accuracy should yield 6 targets.
+        //    //Using an accuracy of 100% there are evidently only 2 available targets.
+        //    //using a fuzzy approach, because we are overlapping a 50% minumum accuracy should yield 6 targets.
 
-            var expected = new List<Tuple<double, double>>
-            {
-                new Tuple<double, double>(0.5, 0.5),
-                new Tuple<double,double>(2.5, 4.5),
-            };
+        //    var expected = new List<Tuple<double, double>
+        //    {
+        //        new Tuple<double, double>(0.5, 0.5);
+        //    }
 
-            var actual =
-              ProceduralHelpers.CalculateCoordinatesOfIdentifiedTargets(map, target, 1, ' ');
+        //    var actual =
+        //      ProceduralHelpers.CalculateCoordinatesOfIdentifiedTargets(map, target, minimumAccuracy, ' ');
 
-            Assert.AreEqual(expected, actual);
-        }
+        //    Assert.AreEqual(expected, actual);
+        //}
 
     }
 }
