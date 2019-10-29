@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AssemblyName>SnapperCodingChallenge</AssemblyName>
+    <AssemblyName>SnapperSolver</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,19 +11,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SampleData\NuclearTorpedo.blf">
+    <None Update="Starship.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleData\Starship.blf">
+    <None Update="Targets\NuclearTorpedo.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleData\TestData.blf">
+    <None Update="Targets\Starship.blf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Map\TestData.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SampleData\" />
+    <Folder Include="Targets\" />
   </ItemGroup>
 
 </Project>
