@@ -28,7 +28,7 @@ namespace SnapperCodingChallenge.NUnit
             };
 
             var actual =
-                MultiDimensionalArrayHelpers.GetSubArrayFromArray(arrayMain, 0, 0, 2, 2);
+                MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(arrayMain, 0, 0, 2, 2);
 
             Assert.AreEqual(expected, actual);
         }
@@ -50,7 +50,7 @@ namespace SnapperCodingChallenge.NUnit
             };
 
             var actual =
-                MultiDimensionalArrayHelpers.GetSubArrayFromArray(arrayMain, 3, 1, 2, 1);
+                MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(arrayMain, 3, 1, 2, 1);
 
             Assert.AreEqual(expected, actual);
         }
