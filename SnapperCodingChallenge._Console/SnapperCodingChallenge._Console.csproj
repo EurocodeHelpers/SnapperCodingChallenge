@@ -3,7 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AssemblyName>SnapperSolver</AssemblyName>
+    <AssemblyName>SAS</AssemblyName>
+    <ApplicationIcon>spaceInvadersIcon.ico</ApplicationIcon>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +22,7 @@
     <None Update="Targets\Starship.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Map\TestData.blf">
+    <None Update="ScannerImage\TestData.blf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
