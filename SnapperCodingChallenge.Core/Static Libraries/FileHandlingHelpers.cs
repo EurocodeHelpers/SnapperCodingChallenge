@@ -18,7 +18,5 @@ namespace SnapperCodingChallenge.Core.Static_Libraries
                 return true;
             }
         }
-
-
     }
 }

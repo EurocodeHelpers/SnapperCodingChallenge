@@ -34,7 +34,7 @@ namespace SnapperCodingChallenge.Core
             List<int> nonBlankRows = new List<int>();
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                if (MultiDimensionalArrayHelpers.CheckIfRowIsBlank(array, i, ch) == false)
+                if (MultiDimensionalCharacterArrayHelpers.CheckIfRowIsBlank(array, i, ch) == false)
                 {
                     nonBlankRows.Add(i);
                 }
@@ -47,7 +47,7 @@ namespace SnapperCodingChallenge.Core
             List<int> nonBlankCols = new List<int>();
             for (int j = 0; j < array.GetLength(1); j++)
             {
-                if (MultiDimensionalArrayHelpers.CheckIfColumnIsBlank(array, j, ch) == false)
+                if (MultiDimensionalCharacterArrayHelpers.CheckIfColumnIsBlank(array, j, ch) == false)
                 {
                     nonBlankCols.Add(j);
                 }

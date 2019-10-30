@@ -141,8 +141,8 @@ namespace SnapperCodingChallenge.Core
                     Console.WriteLine($"Xo = {j}");
                     Console.WriteLine($"Yo = {i}");
 
-                    slice = MultiDimensionalArrayHelpers.GetSubArrayFromArray(map, j, i, targetRows, targetCols);
-                    MultiDimensionalArrayHelpers.Print2DCharacterArrayToConsole(slice);
+                    slice = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(map, j, i, targetRows, targetCols);
+                    MultiDimensionalCharacterArrayHelpers.Print2DCharacterArrayToConsole(slice);
 
                     bool targetIdentified =
                         VerifyArraysAreIdenticalAgainstKnownCoordinates(target, slice, coordinates, minimumAccuracy);
