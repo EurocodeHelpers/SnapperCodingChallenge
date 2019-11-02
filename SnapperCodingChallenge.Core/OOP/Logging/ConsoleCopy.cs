@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SnapperCodingChallenge.Core.OOP.Logging
+namespace SnapperCodingChallenge.Core
 {
     /// <summary>
     /// A class that mirrors the console and dumps it to a txt file to be examined after the 
     /// analysis if required.
     /// </summary>
-    public class ConsoleCopy : IDisposable
+    public class EchoConsoleToTextFile : IDisposable
     {
         FileStream fileStream;
         StreamWriter fileWriter;
@@ -47,7 +47,7 @@ namespace SnapperCodingChallenge.Core.OOP.Logging
 
         }
 
-        public ConsoleCopy(string path)
+        public EchoConsoleToTextFile(string path)
         {
             oldOut = Console.Out;
 

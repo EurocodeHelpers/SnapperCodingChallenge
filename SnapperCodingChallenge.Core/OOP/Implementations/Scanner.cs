@@ -1,7 +1,6 @@
-﻿using SnapperCodingChallenge.Core.OOP;
-using System;
+﻿using SnapperCodingChallenge.Core.OOP.Implementations;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace SnapperCodingChallenge.Core
 {
@@ -10,12 +9,12 @@ namespace SnapperCodingChallenge.Core
         public Scanner(ISnapperImage snapperImage, double minimumPrecision)
         {
             SnapperImage = snapperImage;
-            MinimumPrecision = minimumPrecision;
+            MinimumConfidenceInTargetDetection = minimumPrecision;
         }
 
-        public ISnapperImage SnapperImage { get; set; }
-        public List<Scan> Scans = new List<Scan>();
-        public double MinimumPrecision { get; set; }
+        public ISnapperImage SnapperImage { get; }
+        public double MinimumConfidenceInTargetDetection { get; }
+        public List<TargetIdentified> TargetDetections = new List<TargetIdentified>();
 
         public void ScanForTarget(ITarget target)
         {
@@ -28,14 +27,19 @@ namespace SnapperCodingChallenge.Core
             int maxX0 = mapCols - targetCols;
             int maxY0 = mapRows - targetRows;
 
-            for (int i = 0; i < maxY0; i++)
+            for (int i = 0; i <= maxY0; i++)
             {
-                for (int j = 0; j < maxX0; j++)
+                for (int j = 0; j <= maxX0; j++)
                 {
-                    Scan s = new Scan(SnapperImage, target, j, i, MinimumPrecision);
-                    Scans.Add(s);
+                    Scan s = new Scan(SnapperImage, target, j, i, MinimumConfidenceInTargetDetection);
+                    if (s.TargetFound == true)
                 }
             }
+        }
+
+        public List<Scan> GetListOfIdentifiedTargets()
+        {
+            return Scans.Where(x => x.TargetFound == true).ToList();
         }
     }
 }

@@ -5,7 +5,6 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>SAS</AssemblyName>
     <ApplicationIcon>spaceInvadersIcon.ico</ApplicationIcon>
-    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Starship.blf">
+    <None Update="Options\options.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="spaceInvadersIcon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Targets\NuclearTorpedo.blf">

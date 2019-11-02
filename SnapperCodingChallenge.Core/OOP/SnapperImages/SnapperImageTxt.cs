@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SnapperCodingChallenge.Core
 {
-    public class SnapperImage : ISnapperImage
+    public class SnapperImageTxt : ISnapperImage
     {
-        public SnapperImage(string name, string filePath)
+        public SnapperImageTxt(string name, string filePath)
         {
             this.Name = name;
             this.FilePath = filePath;
@@ -16,6 +16,6 @@ namespace SnapperCodingChallenge.Core
         public string Name { get; }
         public string FilePath { get; }
         public char[,] GridRepresentation { get; }
-        public string GridDimensions => $"Grid Size (Rows x Cols = {GridRepresentation.GetLength(0)},{GridRepresentation.GetLength(1)}";
+        public string GridDimensions => $"Grid Size [Rows,Cols] = {GridRepresentation.GetLength(0)},{GridRepresentation.GetLength(1)}";
     }
 }

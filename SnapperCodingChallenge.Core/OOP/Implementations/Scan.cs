@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SnapperCodingChallenge.Core.OOP
+namespace SnapperCodingChallenge.Core
 {
     public class Scan
     {
@@ -37,9 +37,10 @@ namespace SnapperCodingChallenge.Core.OOP
             int targetCols = Target.GridRepresentation.GetLength(1);
 
             char[,] slice = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray
-                ((char[,])SnapperImage.GridRepresentation, XOffset, YOffset, targetRows, targetCols);
+                (SnapperImage.GridRepresentation, XOffset, YOffset, targetRows, targetCols);
 
-            TargetCentroidCoordinates = TupleHelpers.GetSubArrayCentroid(slice, XOffset, YOffset, targetRows, targetCols);
+            TargetCentroidCoordinates = TupleHelpers.GetSubArrayCentroid(SnapperImage.GridRepresentation, XOffset, YOffset, targetRows, targetCols);
+            //TargetCentroidCoordinates = TupleHelpers.GetSubArrayCentroid(slice, XOffset, YOffset, targetRows, targetCols);
 
             foreach (Tuple<int, int> coordinate in Target.InternalShapeCoordinatesOfTarget)
             {

@@ -1,0 +1,12 @@
+﻿minimumPrecision=0.70
+anyKeyToStartAnalysis=false
+
+******EXPLANATION*******
+
+1. Do not change this file in any way, except the double and boolean literals for the above parameters. 
+2. "minimumPrecision" is used as a minimum confidence to identify a given target e.g. 0.75 = 75%
+3. "promptAnyKeyToStartAnalysis":
+	true => console application pauses to allow user to check input before scan is carried out. 
+	false => console application does not pause. 
+
+

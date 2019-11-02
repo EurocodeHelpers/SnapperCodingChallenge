@@ -7,9 +7,8 @@
     /// </summary>
     public interface ISnapperImage
     {
-        string FilePath { get; }
+        string Name { get; }
         string GridDimensions { get; }
         char[,] GridRepresentation { get; }
-        string Name { get; }
     }
 }
