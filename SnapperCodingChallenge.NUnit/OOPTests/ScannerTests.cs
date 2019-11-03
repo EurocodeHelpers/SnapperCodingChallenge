@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using SnapperCodingChallenge.Core;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SnapperCodingChallenge.NUnit.OOPTests
 {

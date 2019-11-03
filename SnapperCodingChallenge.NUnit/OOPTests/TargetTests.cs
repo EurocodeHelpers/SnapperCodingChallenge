@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using SnapperCodingChallenge.Core;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SnapperCodingChallenge.NUnit
 {
@@ -40,8 +38,69 @@ namespace SnapperCodingChallenge.NUnit
                 {'X',' ',' ','X'},
         };
 
+        [Test]
+        public void Verify_Target_Test1_ParsingTxtFile1()
+        {
+            //var original array = new char[,]
+            //    {
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','1','1','1','1','X','1','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','1','1','1','1','X','1','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //             {'X','X','X','X','X','X','X','X','X','X','X'},
+            //    };
+
+            var expected = new char[,]
+                {
+                         {'1','1','1','1','X','1'},
+                         {'X','X','X','X','X','X'},
+                         {'X','X','X','X','X','X'},
+                         {'X','X','X','X','X','X'},
+                         {'1','1','1','1','X','1'},
+                };
 
 
+
+
+            var target = new Target("testfile1", @"OOPTests/TestFile1.txt", 'X');
+
+            var actual = target.GridRepresentation;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Verify_Target_Test2_ParsingTxtFile1()
+        {
+            /*
+             * 
+             * XXXXXXXXX
+               XXXX1XXXX
+               XXX111XXX
+               XX11X11XX
+               XXXXXXXXX
+               XXXXXXXXX
+             * 
+             */
+
+            var expected = new char[,]
+                {
+                     {'X','X','1','X','X'},
+                     {'X','1','1','1','X'},
+                     {'1','1','X','1','1'},
+                };
+
+            var target = new Target("testfile1", @"OOPTests/TestFile2.txt", 'X');
+
+            var actual = target.GridRepresentation;
+
+            Assert.AreEqual(expected, actual);
+        }
 
         [Test]
         public void Verify_Target_Test1_ValidateNumberOfRows()
@@ -128,6 +187,8 @@ namespace SnapperCodingChallenge.NUnit
 
             Assert.AreEqual(expected, actual);
         }
+
+        
 
 
     }
