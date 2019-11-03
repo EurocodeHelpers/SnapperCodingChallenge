@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace SnapperCodingChallenge.Core
 {
     /// <summary>
-    /// A class that mirrors the console and dumps it to a txt file to be examined after the 
-    /// analysis if required.
+    /// A class that echoes the console to a text file. Source code by Christian from 
+    /// https://stackoverflow.com/questions/420429/mirroring-console-output-to-a-file
     /// </summary>
     public class EchoConsoleToTextFile : IDisposable
     {

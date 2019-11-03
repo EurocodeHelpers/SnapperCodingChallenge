@@ -19,23 +19,23 @@ namespace SnapperCodingChallenge.Core
         /// 
         /// array[3,1] = H
         /// </summary>
-        /// <param name="filePath">The path of the text file.</param>
+        /// <param name="filePath">The filepath for the textfile.</param>
         /// <returns></returns>
         public static char[,] ConvertTxtFileInto2DArray(string filePath)
         {
             //Open the text file and get an array of strings representing each line.
             string[] rows = File.ReadAllLines(filePath);
 
-            int rowNumber = rows.Length;
-            int colNumber = rows[0].Length;
+            //TODO Handle cases where the text file contains irregularly long rows e.g. 
 
-            //For each string, convert to array and set the appropriate rows in the char array 
-            //char[row,col] remember arrays are 0 based. 
+            //Set the dimensions of the 2D character array [rows,cols]
+            int numberOfRows = rows.Length;
+            int numberOfColumns = rows[0].Length;
+            char[,] array = new char[numberOfRows, numberOfColumns]; 
+            
+            //For each row, convert to character array and set the elements of the 2d char array/
 
-            char[,] array = new char[rowNumber, colNumber];
-
-            //For each row in the matrix
-            for (int i = 0; i < rowNumber; i++)
+            for (int i = 0; i < numberOfRows; i++)
             {
                 //Convert the ith row into a character array.                     
                 char[] charArray = rows[i].ToCharArray();
@@ -50,6 +50,27 @@ namespace SnapperCodingChallenge.Core
             return array;
         }
 
+
+        /// <summary>
+        /// Converts a text file to C# code for an equivelant array e.g.
+        /// 
+        /// Input
+        /// 00000
+        /// XXXXX
+        /// 00000
+        /// 
+        /// Output
+        /// = new char[]
+        /// {
+        ///   {'0','0','0','0','0'}
+        ///   {'X','X','X','X','X'}
+        ///   {'0','0','0','0','0'}
+        /// }
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="filePath">The filepath for the textfile.</param>
         public static void ConvertTxtFileToCSharpCodeFor2DArray(string filePath)
         {
             //Open the text file and get an array of strings representing each line.

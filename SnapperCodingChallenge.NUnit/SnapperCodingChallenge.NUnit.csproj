@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="1-TextFileHelpersTests\TextFileHelpers-TestFile1.txt">
+    <None Update="ProceduralTests\TextFileHelpers-TestFile1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="1-TextFileHelpersTests\TextFileHelpers-TestFile2.txt">
+    <None Update="ProceduralTests\TextFileHelpers-TestFile2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Datafiles\UnitTesting_ProceduralHelpers DONOTMODIFY.txt">

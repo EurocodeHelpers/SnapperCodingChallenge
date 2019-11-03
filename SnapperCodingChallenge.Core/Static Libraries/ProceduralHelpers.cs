@@ -24,9 +24,9 @@ namespace SnapperCodingChallenge.Core
         /// Would return (0,2), (1,1), (1,3), (1,5), (2,0),(2,1),(2,2),(2,3),(2,4),
         /// </summary>
         /// <param name="coords">The coordinates that define the internal area of the shape within the 2D Array</param>
-        public static List<Tuple<int, int>> CalculateCoordinatesInsidePerimeterOfObject(char[,] array, char blankCharacter)
+        public static List<Coordinates> CalculateCoordinatesInsidePerimeterOfObject(char[,] array, char blankCharacter)
         {
-            var coords = new List<Tuple<int, int>>();
+            var coords = new List<Coordinates>();
 
             //1. For each row, get first and last non-blank index maintaining any blank chars sandwiched between first and last. 
 
@@ -51,7 +51,7 @@ namespace SnapperCodingChallenge.Core
 
                     for (int k = xMinPosition; k <= xMaxPosition; k++)
                     {
-                        coords.Add(new Tuple<int, int>(i, k));
+                        coords.Add(new Coordinates(i, k));
                     }
                 }                
             }
@@ -114,50 +114,50 @@ namespace SnapperCodingChallenge.Core
 
        
 
-        public static List<Tuple<double, double>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
-        {
-            var coordsOfTarget = new List<Tuple<double, double>>();
+        //public static List<Tuple<double, double>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
+        //{
+        //    var coordsOfTarget = new List<Tuple<double, double>>();
 
-            int mapRows = map.GetLength(0);
-            int mapCols = map.GetLength(1);
+        //    int mapRows = map.GetLength(0);
+        //    int mapCols = map.GetLength(1);
 
-            int targetRows = target.GetLength(0);
-            int targetCols = target.GetLength(1);
+        //    int targetRows = target.GetLength(0);
+        //    int targetCols = target.GetLength(1);
 
-            int maxX0 = mapCols - targetCols;
-            int maxYo = mapRows - targetRows;
+        //    int maxX0 = mapCols - targetCols;
+        //    int maxYo = mapRows - targetRows;
 
-            var coordinates = CalculateCoordinatesInsidePerimeterOfObject(target, character);
+        //    var coordinates = CalculateCoordinatesInsidePerimeterOfObject(target, character);
 
-            char[,] slice = new char[targetRows, targetCols];
+        //    char[,] slice = new char[targetRows, targetCols];
 
-            int sliceCounter = 0;
+        //    int sliceCounter = 0;
 
-            for (int i = 0; i <= maxYo ; i++)
-            {
-                for (int j = 0; j <= maxX0; j++)
-                {
-                    Console.WriteLine($"Slice {sliceCounter}");
-                    Console.WriteLine($"Xo = {j}");
-                    Console.WriteLine($"Yo = {i}");
+        //    for (int i = 0; i <= maxYo ; i++)
+        //    {
+        //        for (int j = 0; j <= maxX0; j++)
+        //        {
+        //            Console.WriteLine($"Slice {sliceCounter}");
+        //            Console.WriteLine($"Xo = {j}");
+        //            Console.WriteLine($"Yo = {i}");
 
-                    slice = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(map, j, i, targetRows, targetCols);
-                    MultiDimensionalCharacterArrayHelpers.Print2DCharacterArrayToConsole(slice);
+        //            slice = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(map, j, i, targetRows, targetCols);
+        //            MultiDimensionalCharacterArrayHelpers.Print2DCharacterArrayToConsole(slice);
 
-                    bool targetIdentified =
-                        VerifyArraysAreIdenticalAgainstKnownCoordinates(target, slice, coordinates, minimumAccuracy);
+        //            bool targetIdentified =
+        //                VerifyArraysAreIdenticalAgainstKnownCoordinates(target, slice, coordinates, minimumAccuracy);
 
-                    if (targetIdentified == true)
-                    {
-                        Console.WriteLine($"Target Identified!");
+        //            if (targetIdentified == true)
+        //            {
+        //                Console.WriteLine($"Target Identified!");
 
-                        coordsOfTarget.Add(TupleHelpers.GetSubArrayCentroid(map, j, i, targetRows, targetCols));
-                    }
-                }
-            }
+        //                coordsOfTarget.Add(TupleHelpers.GetSubArrayCentroid(map, j, i, targetRows, targetCols));
+        //            }
+        //        }
+        //    }
 
-            return coordsOfTarget;
-        }
+        //    return coordsOfTarget;
+        //}
 
        
 

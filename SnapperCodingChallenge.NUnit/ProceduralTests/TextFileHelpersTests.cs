@@ -10,11 +10,10 @@ namespace SnapperCodingChallenge.NUnit
         {
         }
 
-
         [Test]
         public void Verify_ConvertTxtFileInto2DArray_Test1()
         {
-            var expected = new char[10, 11]
+            var expected = new char[,]
                 {
                     {'X','X','X','X','X','X','X','X','X','X','X'},
                     {'X','X','X','X','X','X','X','X','X','X','X'},
@@ -29,12 +28,10 @@ namespace SnapperCodingChallenge.NUnit
                 };
 
             var actual =
-                TextFileHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile1.txt");
+                TextFileHelpers.ConvertTxtFileInto2DArray(@"ProceduralTests/TextFileHelpers-TestFile1.txt");
 
             Assert.AreEqual(expected, actual);
         }
-
-
 
         [Test]
         public void Verify_ConvertTxtFileInto2DArray_Test2()
@@ -47,12 +44,9 @@ namespace SnapperCodingChallenge.NUnit
                 };
 
             var actual =
-                TextFileHelpers.ConvertTxtFileInto2DArray(@"1-TextFileHelpersTests/TextFileHelpers-TestFile2.txt");
+                TextFileHelpers.ConvertTxtFileInto2DArray(@"ProceduralTests/TextFileHelpers-TestFile2.txt");
 
             Assert.AreEqual(expected, actual);
         }
-
-
-
     }
 }
