@@ -1,0 +1,33 @@
+TODO List
+3. XML Comment rest of classes.
+10. Print map, highlight regions
+11. Print targets, highlight regions.
+
+
+DONE
+1. Write code for outputSummary (add date,targets-map)
+2. Modify file for outputDump
+3. Exception handle file not found.
+12. Move ConvertTxtFileInto2DArray Unit Test to OOP
+13. Write email.
+2. Remove references
+3. Upgrade to dotnet core 3.0
+
+V1.1
+6. Options for 'on' character
+7. Options for 'off' character. 
+8. If file contains any character that does not contain on or off character, throw exception
+8. Create project folder.
+13. Refactor console application, move some bits into methods.
+10. Single design pattern
+9. Move constants to settings e.g. directory, filepath.
+12. Deal with overlapping scans/
+14. Release on github
+
+
+
+
+
+
+
+
