@@ -1,5 +1,4 @@
 ﻿using SnapperCodingChallenge.Core;
-using SnapperCodingChallenge.Core.Static_Libraries;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SnapperCodingChallenge.Core.Static_Libraries
+namespace SnapperCodingChallenge.Core
 {
     public static class DirectoryHelpers
     {

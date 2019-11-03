@@ -51,9 +51,56 @@ namespace SnapperCodingChallenge.Core
         /// The global coordinates of the centroid of the target slice.
         /// </summary>
         public Coordinates CentroidGlobalCoordinates { get; private set; }
+
+        /// <summary>
+        /// The number of matches when comparing ArrayA to Array B. For example:
+        /// 
+        /// 00100       00000
+        /// 00100  vs   00100
+        /// 01110       01100
+        /// 11111       11001
+        /// 
+        /// Number of Elements compared = 10
+        /// Number of Matches = 6
+        /// Number of difference = 4
+        /// 
+        /// </summary>
         public double Matches { get; private set; }
+
+        /// <summary>
+        /// The number of differences when comparing ArrayA to Array B. For example:
+        /// 
+        /// 00100       00000
+        /// 00100  vs   00100
+        /// 01110       01100
+        /// 11111       11001
+        /// 
+        /// Number of Elements compared = 10
+        /// Number of Matches = 6
+        /// Number of difference = 4
+        /// 
+        /// </summary>
         public double Differences { get; private set; }
+
+        /// <summary>
+        /// The accuracy of the match. For example:
+        /// 
+        /// 00100       00000
+        /// 00100  vs   00100
+        /// 01110       01100
+        /// 11111       11001
+        /// 
+        /// Number of Elements compared = 10
+        /// Number of Matches = 6
+        /// Number of difference = 4
+        /// Confidence = 6/10 = 60%
+        /// 
+        /// </summary>
         public double ConfidenceInTargetDetection { get; private set; }
+       
+        /// <summary>
+        /// Returns whether a target was found.
+        /// </summary>
         public bool TargetFound { get; private set; }
 
         //Methods
