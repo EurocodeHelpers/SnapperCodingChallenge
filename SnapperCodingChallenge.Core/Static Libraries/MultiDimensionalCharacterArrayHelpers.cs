@@ -69,38 +69,38 @@ namespace SnapperCodingChallenge.Core
             return true;
         }
 
-        /// <summary>
-        /// A method that obtains a sub-array based on a specified array and a supplied row and column numbers and offsets. 
-        /// 
-        /// Example: 
-        /// rows = 2, cols = 2, x0=2, y0=1
-        /// {A, B, C, D, E}
-        /// {F, G, H, I, J}     
-        /// {K, L, M, N, O}
-        /// 
-        /// => {H,I}
-        ///    {M,N}        /// 
-        /// </summary>
-        /// <param name="array">The array from which a sub array is returned. </param>
-        /// <param name="x0">The horizontal offset, better defined in the summary graphically</param>
-        /// <param name="y0">The vertical offset, better defined in the summary graphically</param>
-        /// <param name="rows">The number of rows requested in the subassembly.</param>
-        /// <param name="columns">The number of columns requested in the subassembly.</param>
-        /// <returns></returns>
-        public static char[,] GetSubArrayFromArray(char[,] array, int x0, int y0, int rows, int columns)
-        {
-            var subArray = new char[rows, columns];
+        ///// <summary>
+        ///// A method that obtains a sub-array based on a specified array and a supplied row and column numbers and offsets. 
+        ///// 
+        ///// Example: 
+        ///// rows = 2, cols = 2, x0=2, y0=1
+        ///// {A, B, C, D, E}
+        ///// {F, G, H, I, J}     
+        ///// {K, L, M, N, O}
+        ///// 
+        ///// => {H,I}
+        /////    {M,N}        /// 
+        ///// </summary>
+        ///// <param name="array">The array from which a sub array is returned. </param>
+        ///// <param name="x0">The horizontal offset, better defined in the summary graphically</param>
+        ///// <param name="y0">The vertical offset, better defined in the summary graphically</param>
+        ///// <param name="rows">The number of rows requested in the subassembly.</param>
+        ///// <param name="columns">The number of columns requested in the subassembly.</param>
+        ///// <returns></returns>
+        //public static char[,] GetSubArrayFromArray(char[,] array, int x0, int y0, int rows, int columns)
+        //{
+        //    var subArray = new char[rows, columns];
 
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    subArray[i, j] = array[i + y0, j + x0];
-                }
-            }
+        //    for (int i = 0; i < rows; i++)
+        //    {
+        //        for (int j = 0; j < columns; j++)
+        //        {
+        //            subArray[i, j] = array[i + y0, j + x0];
+        //        }
+        //    }
 
-            return subArray;
-        }
+        //    return subArray;
+        //}
 
         /// <summary>
         /// Removes any rows or columns only containing a specific character, e.g. ' ' or 'X'.

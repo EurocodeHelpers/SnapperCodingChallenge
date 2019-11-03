@@ -7,9 +7,21 @@ namespace SnapperCodingChallenge.Core.Static_Libraries
 {
     public static class DirectoryHelpers
     {
-        public static string[] GetFilesWithiNDirectoryWithCertainFileExtension(string directoryPath, string fileExtension)
+        public static string[] GetFilesWithinDirectoryWithCertainFileExtension(string directoryPath, string fileExtension)
         {
             return Directory.GetFiles(directoryPath, fileExtension, SearchOption.AllDirectories);
+        }
+
+        public static bool CheckForExistenceOfFileTypeWithinDirectoryPath(string dirPath, string fileExtension)
+        {
+            if (Directory.GetFiles(dirPath, fileExtension).Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

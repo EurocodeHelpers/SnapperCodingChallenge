@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SnapperCodingChallenge.Core
 {
+    /// <summary>
+    /// A class used to compare a piece of a snapper image with a defined target to determine whether a target
+    /// indeed exists.
+    /// </summary>
     public class Scan
     {
         public Scan(SnapperImage snapperImage, Target target, int horizontalOffset, 
@@ -18,13 +20,36 @@ namespace SnapperCodingChallenge.Core
             ScanImageForTarget();
         }
 
+        /// <summary>
+        /// The snapper image to be scanned.
+        /// </summary>
         public SnapperImage SnapperImage { get; }
+
+        /// <summary>
+        /// The target we are scanning for.
+        /// </summary>
         public Target Target { get; }
+
+        /// <summary>
+        /// The horizontal offset from 0,0 for the snapper image which we're scanning for.
+        /// </summary>
         public int HorizontalOffset { get; }
+
+        /// <summary>
+        /// The vertical offset from 0,0 for the snapper image which we're scanning for.
+        /// </summary>
         public int VerticalOffset { get; }
+        
+        /// <summary>
+        /// The minimum match in elements we need to determine a match e.g. 0.7 => 70% minimum match required.
+        /// </summary>
         public double MinimumConfidenceInTargetDetection { get; }
 
         //Properties
+
+        /// <summary>
+        /// The global coordinates of the centroid of the target slice.
+        /// </summary>
         public Coordinates CentroidGlobalCoordinates { get; private set; }
         public double Matches { get; private set; }
         public double Differences { get; private set; }

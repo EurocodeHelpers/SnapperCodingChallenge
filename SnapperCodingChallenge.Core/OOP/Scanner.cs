@@ -13,7 +13,10 @@ namespace SnapperCodingChallenge.Core
 
         public SnapperImage SnapperImage { get; }
         public double MinimumConfidenceInTargetDetection { get; }
-        public List<Scan> Scans = new List<Scan>();
+
+        public readonly List<Scan> Scans = new List<Scan>();
+        public readonly List<Target> TargetsScannedFor = new List<Target>();
+
 
         public void ScanForTarget(Target target)
         {
@@ -34,6 +37,8 @@ namespace SnapperCodingChallenge.Core
                     Scans.Add(s);
                 }
             }
+
+            TargetsScannedFor.Add(target);
         }
 
         public List<Scan> GetListOfIdentifiedTargets()
@@ -53,6 +58,7 @@ namespace SnapperCodingChallenge.Core
                 System.Console.WriteLine(scan.ScanSummary());
             }
         }
+
 
     }
 }

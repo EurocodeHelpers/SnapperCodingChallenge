@@ -7,8 +7,7 @@ using System.Text;
 namespace SnapperCodingChallenge.Core
 {
     /// <summary>
-    /// A textfile implementation of the ITarget interface. This class converts a textfile into a 2d multi-dimensional
-    /// array of characters using System.IO.File.
+    /// A class that models a target object e.g. starship, nuclear torpedo as a 2D array of characters.
     /// </summary>
     public class Target
     {
@@ -74,12 +73,35 @@ namespace SnapperCodingChallenge.Core
         public List<Coordinates> InternalShapeCoordinatesOfTarget { get; }
 
         /// <summary>
-        /// The coordinates {x,y} describing the centroid of the object.
+        /// The coordinates {x,y} describing the centroid of the object. relative to the local {0,0} square.
+        /// For example:
+        /// 
+        ///  0 1|2 3 
+        /// 0X X X X
+        /// 1X X X X  
+        /// 2X X X X
+        /// 3X X X X
+        /// 4X X X X
+        /// 
+        /// The "centroid" of the shape {x,y} from 0,0 square is 1.5,2.5
         /// </summary>
         public Coordinates CentroidLocalCoordinates => CalculateLocalCoordinatesOfShapeCentroid();
+
+        /// <summary>
+        /// Returns a string describing the size of the target in terms of a multi-dimensional character array/
+        /// </summary>
         public string GridDimensionsSummary => $"Grid Size [rows,cols] = {NumberOfRows},{NumberOfColumns}";
+
+        /// <summary>
+        /// Returns a string describing the local co-ordinates of the target in terms of a multi-dimensional character array.
+        /// </summary>
         public string LocalCoordinatesOfCentroidSummary => $"Local Coordinates of Centroid [x,y] = {CentroidLocalCoordinates.X},{CentroidLocalCoordinates.Y}";
 
+        /// <summary>
+        /// Takes a textfile and converts it into a 2D array of characters.
+        /// </summary>
+        /// <param name="filePath">The filepath for the textfile.</param>
+        /// <returns></returns>
         private char[,] ConvertTxtFileInto2DArray(string filePath)
         {
             //Open the text file and get an array of strings representing each line.
@@ -107,11 +129,19 @@ namespace SnapperCodingChallenge.Core
             return array;
         }
 
-        public Coordinates CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage snapperImage, double horizontalOffset, double verticalOffset)
-        {
-            return new Coordinates(horizontalOffset + CentroidLocalCoordinates.X, verticalOffset + CentroidLocalCoordinates.Y);
-        }
-
+        /// <summary>
+        /// Returns the local co-ordinates of the target, for example:
+        /// 
+        /// Local coords {x,y} => 0.5,1.5
+        /// 
+        ///   0 1  x=> 
+        /// 0 X X
+        /// 1 X X 
+        /// 2 X X 
+        /// 3 X X 
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Coordinates CalculateLocalCoordinatesOfShapeCentroid()
         {
             double numberOfColumnsDbl = Convert.ToDouble(NumberOfColumns);
@@ -121,6 +151,31 @@ namespace SnapperCodingChallenge.Core
             double y = (numberOfRowsDbl - 1) / 2;
 
             return new Coordinates(x, y);
+        }
+
+        /// <summary>
+        /// Returns the global co-ordinates of the target relative to a snapperimage, for example:
+        /// 
+        /// Horizontal Offset = 5
+        /// Vertical Offset = 2
+        /// Global coords {x,y} => 5.5,2.5
+        /// 
+        ///  0 1 2 3 4 5 6 
+        /// 0
+        /// 1
+        /// 2          X X 
+        /// 3          X X 
+        /// 4
+        /// 5
+        /// 6
+        /// </summary>
+        /// <param name="snapperImage">The snapper image</param>
+        /// <param name="horizontalOffset">"Horizontal "distance" from (0,0) square.</param>
+        /// <param name="verticalOffset">"Vertical "distance" from (0,0) square.</param>
+        /// <returns></returns>
+        public Coordinates CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage snapperImage, double horizontalOffset, double verticalOffset)
+        {
+            return new Coordinates(horizontalOffset + CentroidLocalCoordinates.X, verticalOffset + CentroidLocalCoordinates.Y);
         }
     }
 }

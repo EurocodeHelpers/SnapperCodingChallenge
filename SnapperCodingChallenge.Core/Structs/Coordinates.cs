@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SnapperCodingChallenge.Core
+﻿namespace SnapperCodingChallenge.Core
 {
     public struct Coordinates
     {

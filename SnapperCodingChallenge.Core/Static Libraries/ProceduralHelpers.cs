@@ -9,10 +9,10 @@ namespace SnapperCodingChallenge.Core
     /// </summary>
     public static class ProceduralHelpers
     {
-       
 
-       
-       
+
+
+
 
         /// <summary>
         /// A method that calculates the coordinates of a shape within a 2D array of characters. For example:
@@ -53,117 +53,10 @@ namespace SnapperCodingChallenge.Core
                     {
                         coords.Add(new Coordinates(i, k));
                     }
-                }                
+                }
             }
 
             return coords;
         }
-
-        
-
-        /// <summary>
-        /// A method that compares 2No. two-dimensional arrays of characters of equal sizes, against only a series of provided 
-        /// coordinates using a supplied accuracy.
-        /// 
-        /// For example:
-        /// 
-        /// Matrix A 
-        ///  0
-        /// 000 
-        ///00000 
-        ///
-        /// Matrix B 
-        ///  0 0
-        /// 000 
-        ///0  00
-        ///
-        ///There are only two differences (within the pyramid) - the extra 0 in the top right hand corner 
-        ///is not counted as its outside the perimeter of the shape.  
-        /// </summary>
-        /// <param name="matrixA"></param>
-        /// <param name="matrixB"></param>
-        /// <param name="coordinates"></param>
-        /// <param name="minimumAccuracy"></param>
-        /// <returns></returns>
-        public static bool VerifyArraysAreIdenticalAgainstKnownCoordinates
-            (char[,] matrixA, char[,] matrixB, List<Tuple<int, int>> coordinates, double minimumAccuracy)
-        {
-            double matches = 0;
-            double differences = 0;
-
-            foreach (Tuple<int, int> coordinate in coordinates)
-            {
-                int x = coordinate.Item1;
-                int y = coordinate.Item2;
-
-                if (matrixA[x, y] == matrixB[x, y])
-                {
-                    matches++;
-                }
-                else
-                {
-                    differences++;
-                }
-            }
-
-            double accuracy = matches / (matches + differences);
-
-            return (accuracy >= minimumAccuracy);
-        }
-
-
-       
-
-        //public static List<Tuple<double, double>> CalculateCoordinatesOfIdentifiedTargets(char[,] map, char[,] target, double minimumAccuracy, char character)
-        //{
-        //    var coordsOfTarget = new List<Tuple<double, double>>();
-
-        //    int mapRows = map.GetLength(0);
-        //    int mapCols = map.GetLength(1);
-
-        //    int targetRows = target.GetLength(0);
-        //    int targetCols = target.GetLength(1);
-
-        //    int maxX0 = mapCols - targetCols;
-        //    int maxYo = mapRows - targetRows;
-
-        //    var coordinates = CalculateCoordinatesInsidePerimeterOfObject(target, character);
-
-        //    char[,] slice = new char[targetRows, targetCols];
-
-        //    int sliceCounter = 0;
-
-        //    for (int i = 0; i <= maxYo ; i++)
-        //    {
-        //        for (int j = 0; j <= maxX0; j++)
-        //        {
-        //            Console.WriteLine($"Slice {sliceCounter}");
-        //            Console.WriteLine($"Xo = {j}");
-        //            Console.WriteLine($"Yo = {i}");
-
-        //            slice = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray(map, j, i, targetRows, targetCols);
-        //            MultiDimensionalCharacterArrayHelpers.Print2DCharacterArrayToConsole(slice);
-
-        //            bool targetIdentified =
-        //                VerifyArraysAreIdenticalAgainstKnownCoordinates(target, slice, coordinates, minimumAccuracy);
-
-        //            if (targetIdentified == true)
-        //            {
-        //                Console.WriteLine($"Target Identified!");
-
-        //                coordsOfTarget.Add(TupleHelpers.GetSubArrayCentroid(map, j, i, targetRows, targetCols));
-        //            }
-        //        }
-        //    }
-
-        //    return coordsOfTarget;
-        //}
-
-       
-
-
-
-
-
     }
 }
