@@ -135,6 +135,21 @@ namespace SnapperCodingChallenge.Core
 
             return trimmedArray;
         }
-        
+
+        public static char[,] GetSubArrayFromArray(char[,] mainArray, char[,] targetArray, int horizontalOffset, int verticalOffset)
+        {
+            char[,] slice = new char[targetArray.GetLength(0), targetArray.GetLength(1)];
+
+            for (int i = 0; i < slice.GetLength(0); i++)
+            {
+                for (int j = 0; j < slice.GetLength(1); j++)
+                {
+                    slice[i, j] = mainArray[i + verticalOffset, j + horizontalOffset];
+                }
+            }
+
+            return slice;
+        }
+
     }
 }

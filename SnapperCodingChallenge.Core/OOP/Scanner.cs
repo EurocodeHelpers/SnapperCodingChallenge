@@ -33,7 +33,7 @@ namespace SnapperCodingChallenge.Core
             {
                 for (int j = 0; j <= maximumHorizontalOffset; j++)
                 {
-                    Scan s = new Scan (SnapperImage, target, j, i, MinimumConfidenceInTargetDetection);
+                    Scan s = new Scan(SnapperImage, target, j, i, MinimumConfidenceInTargetDetection);
                     Scans.Add(s);
                 }
             }
@@ -58,6 +58,57 @@ namespace SnapperCodingChallenge.Core
                 System.Console.WriteLine(scan.ScanSummary());
             }
         }
+
+        public void RemoveAllDuplicates(List<Scan> scansWhereTargetFound, Target target)
+        {
+            int snapperImageRows = SnapperImage.NumberOfRows;
+            int snapperImageColumns = SnapperImage.NumberOfColumns;
+
+            int targetRows = target.NumberOfRows;
+            int targetColumns = target.NumberOfColumns;
+
+            for (int i = 0; i < snapperImageRows - targetRows; i++)
+            {
+                for (int j = 0; j < snapperImageColumns - targetColumns; j++)
+                {
+                    //Get a subarray from the snapperimagearray and look for squares which contain global centroids.                    
+                    var subArray = MultiDimensionalCharacterArrayHelpers.GetSubArrayFromArray
+                        (SnapperImage.GridRepresentation, target.GridRepresentation, j, 0);
+
+                    //For each element in the subarray, look for any targets in targetsFound 
+                    List<Scan> potentialDuplicates = new List<Scan>();
+
+
+                    for (int k = 0; k < target.NumberOfRows; k++)
+                    {
+                        for (int m = 0; i < target.NumberOfColumns; i++)
+                        {
+                            int globalX = j + k;
+                            int globalY = i + m;
+
+                            var globalCords = new Coordinates(globalX, globalY);
+
+                            //Look for any targets within targetsFound with matching coordinates, if so add to potentialDuplicates.
+                            Scan scan =
+                                scansWhereTargetFound.Where(x => x.CentroidGlobalCoordinates.X == globalX && x.CentroidGlobalCoordinates.Y == globalY).FirstOrDefault(); ;
+
+                            if (scan != null) { potentialDuplicates.Add(scan); }
+                        }
+                    }
+
+                    //Sort the duplicates by calculatedAccracy
+                    potentialDuplicates.OrderByDescending(x => x.ConfidenceInTargetDetection);
+
+                    for (int n = 1; n < potentialDuplicates.Count; i++)
+                    {
+                        scansWhereTargetFound.Remove(potentialDuplicates[n]);
+                    }
+                }
+            }
+
+        }
+
+
 
 
     }

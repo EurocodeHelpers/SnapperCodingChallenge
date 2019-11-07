@@ -108,6 +108,15 @@ namespace SnapperCodingChallenge._Console
                 Console.WriteLine();
             }
 
+            //7. Remove duplicates..!
+
+            var scansFinal = scanner.GetListOfIdentifiedTargets();
+
+            foreach (Target t in targets)
+            {
+                scanner.RemoveAllDuplicates(scansFinal, t);
+            }
+
             //7. Write to output file.
             WriteOutputFile(scanner, $"SAS Output File {DateTime.Now.ToString(dateTimeFormat)}.txt");
 

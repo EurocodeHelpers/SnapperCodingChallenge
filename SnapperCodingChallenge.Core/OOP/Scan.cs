@@ -50,7 +50,7 @@ namespace SnapperCodingChallenge.Core
         /// <summary>
         /// The global coordinates of the centroid of the target slice.
         /// </summary>
-        public Coordinates CentroidGlobalCoordinates { get; private set; }
+        public Coordinates CentroidGlobalCoordinates { get; set; }
 
         /// <summary>
         /// The number of matches when comparing ArrayA to Array B. For example:
