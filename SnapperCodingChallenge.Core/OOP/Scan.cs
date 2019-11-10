@@ -53,6 +53,12 @@ namespace SnapperCodingChallenge.Core
         public Coordinates CentroidGlobalCoordinates { get; set; }
 
         /// <summary>
+        /// The global coordinates of the centroid of the target slice.
+        /// </summary>
+        public Coordinates TopLHCornerGlobalCoordinates { get; set; }
+
+
+        /// <summary>
         /// The number of matches when comparing ArrayA to Array B. For example:
         /// 
         /// 00100       00000
@@ -109,6 +115,8 @@ namespace SnapperCodingChallenge.Core
             //Get a "Slice" of the SnapperImage based on a horiz+vert offset from (0,0) based on dimensions of target
             char[,] slice = GetSubArrayFromArray
                 (SnapperImage.GridRepresentation, Target.GridRepresentation, HorizontalOffset, VerticalOffset);
+
+            TopLHCornerGlobalCoordinates = new Coordinates(HorizontalOffset, VerticalOffset);
 
             CentroidGlobalCoordinates = Target.CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage, HorizontalOffset, VerticalOffset);
 

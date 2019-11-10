@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SnapperCodingChallenge.Core;
 
-namespace SnapperCodingChallenge.NUnit
+namespace SnapperCodingChallenge.Core.Tests
 {
     public class ArrayTrimTests
     {

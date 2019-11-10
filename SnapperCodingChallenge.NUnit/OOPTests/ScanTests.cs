@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SnapperCodingChallenge.NUnit
+namespace SnapperCodingChallenge.Core.Tests
 {
     class ScanTests
     {

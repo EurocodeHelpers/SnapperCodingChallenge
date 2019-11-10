@@ -2,9 +2,9 @@
 using SnapperCodingChallenge.Core;
 using System.Collections.Generic;
 
-namespace SnapperCodingChallenge.NUnit.OOPTests
+namespace SnapperCodingChallenge.Core.Tests
 {
-    class ScanTests
+    class ScannerTests
     {
         [SetUp]
         public void Setup()

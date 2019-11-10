@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace SnapperCodingChallenge.Core
 {
-    public class ScannerV2
+    public class Scanner
     {
-        public ScannerV2(SnapperImage snapperImage, double minimumConfidenceInTargetDetection)
+        public Scanner(SnapperImage snapperImage, double minimumConfidenceInTargetDetection)
         {
             SnapperImage = snapperImage;
             MinimumConfidenceInTargetDetection = minimumConfidenceInTargetDetection;

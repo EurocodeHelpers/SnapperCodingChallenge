@@ -2,8 +2,8 @@
 using SnapperCodingChallenge.Core;
 using System.Collections.Generic;
 
-namespace SnapperCodingChallenge.NUnit
-{
+namespace SnapperCodingChallenge.Core.Tests
+{ 
     class TargetTests
     {
         [SetUp]

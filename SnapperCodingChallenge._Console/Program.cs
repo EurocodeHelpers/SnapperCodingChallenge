@@ -9,12 +9,12 @@ namespace SnapperCodingChallenge._Console
 {
     class Program
     {
-        public const string mapFileDirectoryFilePath = @"ScannerImage";
-        public const string targetsFileDirectoryFilePath = @"Targets";
-        public const string optionsFilePath = @"Options/options.txt";
-        public const string fileExtension = "*.blf";
-        public const char blankCharacter = ' ';
-        public const string dateTimeFormat = "yyyyMMdd_HHmm";
+        private const string snapperImageDirectoryPath = @"ScannerImage";
+        private const string targetsDirectoryPath = @"Targets";
+        private const string optionsFilePath = @"Options/options.txt";
+        private const string fileExtension = "*.blf";
+        private const char blankCharacter = ' ';
+        private const string dateTimeFormat = "yyyyMMdd_HHmm";
 
 
         static void Main(string[] args)
@@ -58,7 +58,7 @@ namespace SnapperCodingChallenge._Console
             //3. Load the snapper image we will scan for targets. There must be exactly one .blf file 
             //in the ScannerImage directory which we will scan. 
             LogToConsoleWithDateTime_WriteLine("***Loading Snapper Image****");
-            string[] mapFilePaths = DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(mapFileDirectoryFilePath, fileExtension);
+            string[] mapFilePaths = DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(snapperImageDirectoryPath, fileExtension);
             VerifySnapperImageDataPath(mapFilePaths);
             SnapperImage snapperImage = new SnapperImage(Path.GetFileNameWithoutExtension(mapFilePaths[0]), mapFilePaths[0]);
             PrintScannerImageInformation(snapperImage);
@@ -72,7 +72,7 @@ namespace SnapperCodingChallenge._Console
             //There must be at least one .blf file in the Targets directory which we are going to scan for - else quit application.
             LogToConsoleWithDateTime_WriteLine("***Loading Targets***");
             string[] targetsFilePaths =
-                DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(targetsFileDirectoryFilePath, fileExtension);
+                DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(targetsDirectoryPath, fileExtension);
             VerifyTargetsDataPathData(targetsFilePaths);
             List<Target> targets = GetListOfTargetsAndEnsureTheyHaveADefinedShape(targetsFilePaths);
             LogToConsoleWithDateTime_WriteLine("***Targets to scan for successfully loaded!***");

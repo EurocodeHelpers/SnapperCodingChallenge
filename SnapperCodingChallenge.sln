@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge.Core", "SnapperCodingChallenge.Core\SnapperCodingChallenge.Core.csproj", "{5C53E70C-9BB4-429F-AB03-3E8837BD4A17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge._Console", "SnapperCodingChallenge._Console\SnapperCodingChallenge._Console.csproj", "{7D8E4CE1-BB3F-4080-8662-2383071009C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge.FrontEnd", "SnapperCodingChallenge._Console\SnapperCodingChallenge.FrontEnd.csproj", "{7D8E4CE1-BB3F-4080-8662-2383071009C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge.NUnit", "SnapperCodingChallenge.NUnit\SnapperCodingChallenge.NUnit.csproj", "{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnapperCodingChallenge.Core.Tests", "SnapperCodingChallenge.NUnit\SnapperCodingChallenge.Core.Tests.csproj", "{5B41636F-CCD8-4B6D-B9F4-78B0024E78BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
