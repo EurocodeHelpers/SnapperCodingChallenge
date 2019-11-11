@@ -48,7 +48,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Console.WriteLine($"Minimum precision of analysis set to {100*Math.Round(options.Item1, 2)}.");
             Console.WriteLine($"Program pause before running scan = {options.Item2}");
             Console.WriteLine();
-            LogToConsoleWithDateTime_WriteLine($"***Options Set!***");
+            LogToConsoleWithDateTime_WriteLine($"***Options Set.***");
 
             Console.WriteLine();
             Console.WriteLine("===============================================");
@@ -61,7 +61,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             VerifySnapperImageDataPath(mapFilePaths);
             var snapperImage = new SnapperImage(Path.GetFileNameWithoutExtension(mapFilePaths[0]), mapFilePaths[0]);
             PrintScannerImageInformation(snapperImage);
-            LogToConsoleWithDateTime_WriteLine("***Snapper Image successfully loaded!***");
+            LogToConsoleWithDateTime_WriteLine("***Snapper Image successfully loaded.***");
 
             Console.WriteLine();
             Console.WriteLine("===============================================");
@@ -100,21 +100,8 @@ namespace SnapperCodingChallenge.ConsoleApplication
             //6. Scan for each target...
             SnapperSolver snapperSolver = new SnapperSolver(snapperImage, targets, minimumPrecision);
 
-            // foreach (TargetImage t in targets)
-            // {
-            //     Console.WriteLine("===============================================");
-            //     ScanForTargetAndEchoeToConsole(snapperSolver, t);
-            //     Console.WriteLine();
-            // }
+            //7. Write output to console.
 
-            // //7. Remove duplicates..!
-
-            // var scansFinal = scanner.GetListOfIdentifiedTargets();
-
-            // foreach (Target t in targets)
-            // {
-            //     scanner.RemoveAllDuplicates(scansFinal, t);
-            // }
 
             //7. Write to output file.
             snapperSolver.WriteOutputFile(snapperSolverOutputFilePath);
@@ -156,7 +143,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Console.Write($"{DateTime.Now} {msg}");
         }
 
-        public static void PrintTargetInformation(TargetImage target)
+        private static void PrintTargetInformation(TargetImage target)
         {
             Console.WriteLine();
             Console.WriteLine($"Target Name = {target.Name}");
@@ -201,24 +188,6 @@ namespace SnapperCodingChallenge.ConsoleApplication
 
             return targets;
         }
-
-        // public static void ScanForTargetAndEchoeToConsole(SnapperSolver snapperSolver, TargetImage target)
-        // {
-        //     LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name}.");
-        //     scanner.ScanForTarget(target);
-        //     LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name} complete!");
-
-        //     var scansOfTargetType = scanner.Scans.Where(x => x.Target.Name == target.Name && x.TargetFound == true).ToList();
-        //     LogToConsoleWithDateTime_WriteLine($"{scansOfTargetType.Count} instances of {target.Name} identified. ");
-
-        //     foreach (Scan scan in scansOfTargetType)
-        //     {
-        //         if (scan.TargetFound == true)
-        //         {
-        //             Console.WriteLine(scan.ScanSummary());
-        //         }
-        //     }
-        // }
 
         private static void VerifyExistenceOfOptionsFile(string optionsFilePath)
         {
