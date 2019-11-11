@@ -8,11 +8,11 @@ namespace SnapperCodingChallenge.Core
     /// </summary>
     public class Scan
     {
-        public Scan(SnapperImage snapperImage, Target target, int horizontalOffset, 
+        public Scan(SnapperImage snapperImage, TargetImage targetImage, int horizontalOffset, 
             int verticalOffset, double minimumConfidenceInTargetDetection)
         {
             SnapperImage = snapperImage;
-            Target = target;
+            TargetImage = targetImage;
             this.HorizontalOffset = horizontalOffset;
             this.VerticalOffset = verticalOffset;
             MinimumConfidenceInTargetDetection = minimumConfidenceInTargetDetection;
@@ -28,7 +28,7 @@ namespace SnapperCodingChallenge.Core
         /// <summary>
         /// The target we are scanning for.
         /// </summary>
-        public Target Target { get; }
+        public TargetImage TargetImage { get; }
 
         /// <summary>
         /// The horizontal offset from 0,0 for the snapper image which we're scanning for.
@@ -114,18 +114,18 @@ namespace SnapperCodingChallenge.Core
         {
             //Get a "Slice" of the SnapperImage based on a horiz+vert offset from (0,0) based on dimensions of target
             char[,] slice = GetSubArrayFromArray
-                (SnapperImage.GridRepresentation, Target.GridRepresentation, HorizontalOffset, VerticalOffset);
+                (SnapperImage.GridRepresentation, TargetImage.GridRepresentation, HorizontalOffset, VerticalOffset);
 
             TopLHCornerGlobalCoordinates = new Coordinates(HorizontalOffset, VerticalOffset);
 
-            CentroidGlobalCoordinates = Target.CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage, HorizontalOffset, VerticalOffset);
+            CentroidGlobalCoordinates = TargetImage.CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage, HorizontalOffset, VerticalOffset);
 
-            foreach (Coordinates coordinate in Target.InternalShapeCoordinatesOfTarget)
+            foreach (Coordinates coordinate in TargetImage.InternalShapeCoordinatesOfTarget)
             {
                 int x = Convert.ToInt32(coordinate.X);
                 int y = Convert.ToInt32(coordinate.Y);
 
-                if (slice[x, y] == Target.GridRepresentation[x, y])
+                if (slice[x, y] == TargetImage.GridRepresentation[x, y])
                 {
                     Matches++;
                 }
@@ -159,12 +159,12 @@ namespace SnapperCodingChallenge.Core
         {
             if (TargetFound)
             {
-                return $"Position {HorizontalOffset},{VerticalOffset} - {Target.Name} found with centroid co-ordinates [X,Y] {CentroidGlobalCoordinates.X}," +
+                return $"Position {HorizontalOffset},{VerticalOffset} - {TargetImage.Name} found with centroid co-ordinates [X,Y] {CentroidGlobalCoordinates.X}," +
                     $"{CentroidGlobalCoordinates.Y} with a certainty of {100 * Math.Round(ConfidenceInTargetDetection, 2)}%!";
             }
             else
             {
-                return $"Position {HorizontalOffset},{VerticalOffset} - {Target.Name} NOT found with centroid co-ordinates [X,Y] {CentroidGlobalCoordinates.X}," +
+                return $"Position {HorizontalOffset},{VerticalOffset} - {TargetImage.Name} NOT found with centroid co-ordinates [X,Y] {CentroidGlobalCoordinates.X}," +
                     $"{CentroidGlobalCoordinates.Y}.";
             }
         }

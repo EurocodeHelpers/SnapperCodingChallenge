@@ -15,6 +15,7 @@ namespace SnapperCodingChallenge._Console
         private const string fileExtension = "*.blf";
         private const char blankCharacter = ' ';
         private const string dateTimeFormat = "yyyyMMdd_HHmm";
+        private static string snapperSolverOutputFilePath = $"SAS Output File {DateTime.Now.ToString(dateTimeFormat)}.txt";
 
 
         static void Main(string[] args)
@@ -74,7 +75,7 @@ namespace SnapperCodingChallenge._Console
             string[] targetsFilePaths =
                 DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(targetsDirectoryPath, fileExtension);
             VerifyTargetsDataPathData(targetsFilePaths);
-            List<Target> targets = GetListOfTargetsAndEnsureTheyHaveADefinedShape(targetsFilePaths);
+            List<TargetImage> targets = GetListOfTargetsAndEnsureTheyHaveADefinedShape(targetsFilePaths);
             LogToConsoleWithDateTime_WriteLine("***Targets to scan for successfully loaded!***");
 
             Console.WriteLine();
@@ -99,29 +100,29 @@ namespace SnapperCodingChallenge._Console
             Console.WriteLine();
 
             //6. Scan for each target...
-            Scanner scanner = new Scanner(snapperImage, minimumPrecision);
+            SnapperSolver snapperSolver = new SnapperSolver(snapperImage, targets, minimumPrecision);
 
-            foreach (Target t in targets)
-            {
-                Console.WriteLine("===============================================");
-                ScanForTargetAndEchoeToConsole(scanner, t);
-                Console.WriteLine();
-            }
+            // foreach (TargetImage t in targets)
+            // {
+            //     Console.WriteLine("===============================================");
+            //     ScanForTargetAndEchoeToConsole(snapperSolver, t);
+            //     Console.WriteLine();
+            // }
 
-            //7. Remove duplicates..!
+            // //7. Remove duplicates..!
 
-            var scansFinal = scanner.GetListOfIdentifiedTargets();
+            // var scansFinal = scanner.GetListOfIdentifiedTargets();
 
-            foreach (Target t in targets)
-            {
-                scanner.RemoveAllDuplicates(scansFinal, t);
-            }
+            // foreach (Target t in targets)
+            // {
+            //     scanner.RemoveAllDuplicates(scansFinal, t);
+            // }
 
             //7. Write to output file.
-            WriteOutputFile(scanner, $"SAS Output File {DateTime.Now.ToString(dateTimeFormat)}.txt");
+            snapperSolver.WriteOutputFile(snapperSolverOutputFilePath);
 
             //8. Press any to key to exit.
-            Console.ReadLine();
+            // Console.ReadLine();
 
         }
 
@@ -157,7 +158,7 @@ namespace SnapperCodingChallenge._Console
             Console.Write($"{DateTime.Now} {msg}");
         }
 
-        public static void PrintTargetInformation(Target target)
+        public static void PrintTargetInformation(TargetImage target)
         {
             Console.WriteLine();
             Console.WriteLine($"Target Name = {target.Name}");
@@ -180,12 +181,12 @@ namespace SnapperCodingChallenge._Console
             Console.WriteLine();
         }
 
-        public static List<Target> GetListOfTargetsAndEnsureTheyHaveADefinedShape(string[] targetsFilePath)
+        public static List<TargetImage> GetListOfTargetsAndEnsureTheyHaveADefinedShape(string[] targetsFilePath)
         {
-            List<Target> targets = new List<Target>();
+            var targets = new List<TargetImage>();
             foreach (string s in targetsFilePath)
             {
-                Target t = new Target(Path.GetFileNameWithoutExtension(s), s, blankCharacter);
+                var t = new TargetImage(Path.GetFileNameWithoutExtension(s), s, blankCharacter);
                 targets.Add(t);
 
                 if (t.InternalShapeCoordinatesOfTarget.Count == 0)
@@ -203,23 +204,23 @@ namespace SnapperCodingChallenge._Console
             return targets;
         }
 
-        public static void ScanForTargetAndEchoeToConsole(Scanner scanner, Target target)
-        {
-            LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name}.");
-            scanner.ScanForTarget(target);
-            LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name} complete!");
+        // public static void ScanForTargetAndEchoeToConsole(SnapperSolver snapperSolver, TargetImage target)
+        // {
+        //     LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name}.");
+        //     scanner.ScanForTarget(target);
+        //     LogToConsoleWithDateTime_WriteLine($"Scanning for {target.Name} complete!");
 
-            var scansOfTargetType = scanner.Scans.Where(x => x.Target.Name == target.Name && x.TargetFound == true).ToList();
-            LogToConsoleWithDateTime_WriteLine($"{scansOfTargetType.Count} instances of {target.Name} identified. ");
+        //     var scansOfTargetType = scanner.Scans.Where(x => x.Target.Name == target.Name && x.TargetFound == true).ToList();
+        //     LogToConsoleWithDateTime_WriteLine($"{scansOfTargetType.Count} instances of {target.Name} identified. ");
 
-            foreach (Scan scan in scansOfTargetType)
-            {
-                if (scan.TargetFound == true)
-                {
-                    Console.WriteLine(scan.ScanSummary());
-                }
-            }
-        }
+        //     foreach (Scan scan in scansOfTargetType)
+        //     {
+        //         if (scan.TargetFound == true)
+        //         {
+        //             Console.WriteLine(scan.ScanSummary());
+        //         }
+        //     }
+        // }
 
         public static void VerifyExistenceOfOptionsFile(string optionsFilePath)
         {
@@ -259,40 +260,41 @@ namespace SnapperCodingChallenge._Console
             }
         }
 
-        public static void WriteOutputFile(Scanner scanner, string filePath)
-        {
-            StringBuilder s = new StringBuilder();
+        // public static void WriteOutputFile(SnapperSolver snapperSolver, string filePath)
+        // {
+        //     var s = new StringBuilder();
 
-            s.AppendLine(@"***********************************************");
-            s.AppendLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
-            s.AppendLine(@"***********************************************");
-            s.AppendLine("");
-            s.AppendLine(@"Developed by: Peter Cox");
-            s.AppendLine(@"Brief by: Bruno Martins");
-            s.AppendLine(@"Github: https://github.com/EurocodeHelpers");
-            s.AppendLine("");
-            s.AppendLine("***Summary***");
-            s.AppendLine($"Date of analysis: {DateTime.Now}");
-            s.AppendLine($"Minimum confidence in target detection: {scanner.MinimumConfidenceInTargetDetection}");
-            s.AppendLine("");
+        //     s.AppendLine(@"***********************************************");
+        //     s.AppendLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
+        //     s.AppendLine(@"***********************************************");
+        //     s.AppendLine("");
+        //     s.AppendLine(@"Developed by: Peter Cox");
+        //     s.AppendLine(@"Brief by: Bruno Martins");
+        //     s.AppendLine(@"Github: https://github.com/EurocodeHelpers");
+        //     s.AppendLine("");
+        //     s.AppendLine("***Summary***");
+        //     s.AppendLine($"Date of analysis: {DateTime.Now}");
+        //     s.AppendLine($"Minimum confidence in target detection: {snapperSolver.MinimumConfidenceInTargetDetection}");
+        //     s.AppendLine("");
 
-            int totalNumberOfTargetsIdentified = scanner.GetListOfIdentifiedTargets().Count();
-            s.AppendLine($"Total number of targets detected = {scanner.GetListOfIdentifiedTargets().Count}");
-            foreach (Target t in scanner.TargetsScannedFor)
-            {
-                s.AppendLine($"Number of {t.Name} detected = {scanner.GetListOfIdentifiedTargets(t).Count()}");
-            }
-            s.AppendLine("");
+        //     int totalNumberOfTargetsIdentified = snapperSolver.GetListOfScans().Count;
+        //     s.AppendLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
 
-            foreach (Scan scan in scanner.GetListOfIdentifiedTargets())
-            {
-                s.AppendLine(scan.ScanSummary());
-            }
+        //     foreach (TargetImage t in snapperSolver.TargetsScannedFor)
+        //     {
+        //         s.AppendLine($"Number of {t.Name} detected = {scanner.GetListOfIdentifiedTargets(t).Count()}");
+        //     }
+        //     s.AppendLine("");
 
-            string output = s.ToString();
+        //     foreach (Scan scan in scanner.GetListOfIdentifiedTargets())
+        //     {
+        //         s.AppendLine(scan.ScanSummary());
+        //     }
 
-            File.WriteAllText(filePath, output);
-        }
+        //     string output = s.ToString();
+
+        //     File.WriteAllText(filePath, output);
+        // }
     }
 }
 

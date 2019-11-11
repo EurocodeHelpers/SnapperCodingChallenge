@@ -7,11 +7,11 @@ using System.Text;
 namespace SnapperCodingChallenge.Core
 {
     /// <summary>
-    /// A class that models a target object e.g. starship, nuclear torpedo as a 2D array of characters.
+    /// A class that models a target image e.g. starship, nuclear torpedo as a 2D array of characters.
     /// </summary>
-    public class Target
+    public class TargetImage
     {
-        public Target(string name, string filePath, char blankCharacter)
+        public TargetImage(string name, string filePath, char blankCharacter)
         {
             this.Name = name;
             this.FilePath = filePath;
@@ -19,7 +19,7 @@ namespace SnapperCodingChallenge.Core
             this.InternalShapeCoordinatesOfTarget = CalculateCoordinatesInsidePerimeterOfObject(GridRepresentation, blankCharacter);
         }
 
-        public Target(string name, char[,] array, char blankCharacter)
+        public TargetImage(string name, char[,] array, char blankCharacter)
         {
             this.Name = name;
             this.FilePath = "N/A";
