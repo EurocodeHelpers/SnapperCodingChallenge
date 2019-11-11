@@ -6,6 +6,8 @@
     <LangVersion>8.0</LangVersion>
     <AssemblyName>SAS</AssemblyName>
     <ApplicationIcon>spaceInvadersIcon.ico</ApplicationIcon>
+    <Version>1.1.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

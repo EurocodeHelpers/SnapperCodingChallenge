@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace SnapperCodingChallenge._Console
+namespace SnapperCodingChallenge.ConsoleApplication
 {
     class Program
     {
@@ -15,15 +15,14 @@ namespace SnapperCodingChallenge._Console
         private const string fileExtension = "*.blf";
         private const char blankCharacter = ' ';
         private const string dateTimeFormat = "yyyyMMdd_HHmm";
-        private static string snapperSolverOutputFilePath = $"SAS Output File {DateTime.Now.ToString(dateTimeFormat)}.txt";
-
+        private static readonly string snapperSolverOutputFilePath = $"SAS Output File {DateTime.Now.ToString(dateTimeFormat)}.txt";
+        private static readonly string snapperConsoleLogFilePath = $"SAS Console Log {DateTime.Now.ToString(dateTimeFormat)}.txt";
 
         static void Main(string[] args)
         {
 
             //1. Set up the object which will echo the console to a dumpfile to examine - use new C# 8 inline using statement.
-            //File.Create($"SAS Console Log {DateTime.Now.ToString("yyyyMMdd")}.txt");
-            using var cc = new EchoConsoleToTextFile($"SAS Console Log {DateTime.Now.ToString(dateTimeFormat)}.txt");
+            using var cc = new EchoConsoleToTextFile(snapperConsoleLogFilePath);
             
             //2. Show introductory message                    
             Console.WriteLine(@"***********************************************");
@@ -32,9 +31,7 @@ namespace SnapperCodingChallenge._Console
             Console.WriteLine();
             Console.WriteLine(@"Developed by: Peter Cox");
             Console.WriteLine(@"Brief by: Bruno Martins");
-
             Console.WriteLine(@"Github: https://github.com/EurocodeHelpers");
-
             Console.WriteLine();
             Console.WriteLine("===============================================");
             Console.WriteLine();
@@ -42,12 +39,13 @@ namespace SnapperCodingChallenge._Console
             //2. Setup options using options.txt
             LogToConsoleWithDateTime_WriteLine($"***Setting Options***");
             Console.WriteLine();
+            
             VerifyExistenceOfOptionsFile(optionsFilePath);
             Tuple<double, bool> options = ProcessOptionsFile(optionsFilePath);
             double minimumPrecision = options.Item1;
             bool anyKeyToStartAnalysis = options.Item2;
 
-            Console.WriteLine($"Minimum precision of analysis set to {100*Math.Round(options.Item1, 2)}%");
+            Console.WriteLine($"Minimum precision of analysis set to {100*Math.Round(options.Item1, 2)}.");
             Console.WriteLine($"Program pause before running scan = {options.Item2}");
             Console.WriteLine();
             LogToConsoleWithDateTime_WriteLine($"***Options Set!***");
@@ -61,7 +59,7 @@ namespace SnapperCodingChallenge._Console
             LogToConsoleWithDateTime_WriteLine("***Loading Snapper Image****");
             string[] mapFilePaths = DirectoryHelpers.GetFilesWithinDirectoryWithCertainFileExtension(snapperImageDirectoryPath, fileExtension);
             VerifySnapperImageDataPath(mapFilePaths);
-            SnapperImage snapperImage = new SnapperImage(Path.GetFileNameWithoutExtension(mapFilePaths[0]), mapFilePaths[0]);
+            var snapperImage = new SnapperImage(Path.GetFileNameWithoutExtension(mapFilePaths[0]), mapFilePaths[0]);
             PrintScannerImageInformation(snapperImage);
             LogToConsoleWithDateTime_WriteLine("***Snapper Image successfully loaded!***");
 
@@ -222,7 +220,7 @@ namespace SnapperCodingChallenge._Console
         //     }
         // }
 
-        public static void VerifyExistenceOfOptionsFile(string optionsFilePath)
+        private static void VerifyExistenceOfOptionsFile(string optionsFilePath)
         {
             if (!File.Exists(optionsFilePath))
             {
@@ -232,8 +230,8 @@ namespace SnapperCodingChallenge._Console
                 Environment.Exit(0);
             }
         }
-        
-        public static Tuple<double, bool> ProcessOptionsFile(string optionsFilePath)
+
+        private static Tuple<double, bool> ProcessOptionsFile(string optionsFilePath)
         {
             bool fileExists = File.Exists(optionsFilePath);
             string[] lines = File.ReadAllLines(optionsFilePath);
@@ -258,43 +256,7 @@ namespace SnapperCodingChallenge._Console
             {
                 throw new ArgumentException("Options file corrupt - please check input and try again.");
             }
-        }
-
-        // public static void WriteOutputFile(SnapperSolver snapperSolver, string filePath)
-        // {
-        //     var s = new StringBuilder();
-
-        //     s.AppendLine(@"***********************************************");
-        //     s.AppendLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
-        //     s.AppendLine(@"***********************************************");
-        //     s.AppendLine("");
-        //     s.AppendLine(@"Developed by: Peter Cox");
-        //     s.AppendLine(@"Brief by: Bruno Martins");
-        //     s.AppendLine(@"Github: https://github.com/EurocodeHelpers");
-        //     s.AppendLine("");
-        //     s.AppendLine("***Summary***");
-        //     s.AppendLine($"Date of analysis: {DateTime.Now}");
-        //     s.AppendLine($"Minimum confidence in target detection: {snapperSolver.MinimumConfidenceInTargetDetection}");
-        //     s.AppendLine("");
-
-        //     int totalNumberOfTargetsIdentified = snapperSolver.GetListOfScans().Count;
-        //     s.AppendLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
-
-        //     foreach (TargetImage t in snapperSolver.TargetsScannedFor)
-        //     {
-        //         s.AppendLine($"Number of {t.Name} detected = {scanner.GetListOfIdentifiedTargets(t).Count()}");
-        //     }
-        //     s.AppendLine("");
-
-        //     foreach (Scan scan in scanner.GetListOfIdentifiedTargets())
-        //     {
-        //         s.AppendLine(scan.ScanSummary());
-        //     }
-
-        //     string output = s.ToString();
-
-        //     File.WriteAllText(filePath, output);
-        // }
+        }        
     }
 }
 
