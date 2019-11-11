@@ -33,8 +33,7 @@ namespace SnapperCodingChallenge.Core
         private SnapperImage SnapperImage { get; }
         private List<TargetImage> TargetImages = new List<TargetImage>(); 
         public double MinimumConfidenceInTargetDetection { get; }   
-        private List<Scan> _scans = new List<Scan>();    
-        private List<Scan> _scansTargetFound => _scans.Where(x => x.TargetFound == true).ToList();
+        private List<Scan> _rawScans = new List<Scan>();    
         private List<Scan> _scansTargetFoundDuplicatesRemoved = new List<Scan>();
 
         //Methods 
@@ -43,7 +42,7 @@ namespace SnapperCodingChallenge.Core
            return _scansTargetFoundDuplicatesRemoved;
         }
 
-        public void ScanForTarget(TargetImage target)
+        private void ScanForTarget(TargetImage target)
         {
             int snapperImageRows = SnapperImage.NumberOfRows;
             int snapperImageColumns = SnapperImage.NumberOfColumns;
@@ -59,14 +58,14 @@ namespace SnapperCodingChallenge.Core
                 for (int j = 0; j <= maximumHorizontalOffset; j++)
                 {
                     Scan s = new Scan(SnapperImage, target, j, i, MinimumConfidenceInTargetDetection);
-                    _scans.Add(s);
+                    _rawScans.Add(s);
                 }
             }
         }         
 
-        public List<Scan> GetListOfNonDuplicateTargets(TargetImage targetImage)
+        private List<Scan> GetListOfNonDuplicateTargets(TargetImage targetImage)
         {
-            List<Scan> scansWithDuplicates = _scans.Where(scan => scan.TargetFound == true && scan.TargetImage.Name == targetImage.Name).ToList();
+            List<Scan> scansWithDuplicates = _rawScans.Where(scan => scan.TargetFound == true && scan.TargetImage.Name == targetImage.Name).ToList();
 
             // List<string> dump = new List<string>();
             //Note the dimensions of the SnapperImage and Target for conciseness
@@ -116,12 +115,12 @@ namespace SnapperCodingChallenge.Core
                     // }
 
                     //Sort the duplicates by calculated accuracy in descending order.
-                    potentialDuplicates.OrderBy(x => x.ConfidenceInTargetDetection);
 
                     //If potentialDuplicates.Count > 1, remove all duplicates except for one with highest accuracy/
                     if (potentialDuplicates.Count > 1)
                     {
-                        for (int n = 0; n < potentialDuplicates.Count - 1; n++)
+                        potentialDuplicates = potentialDuplicates.OrderByDescending(x => x.ConfidenceInTargetDetection).ToList();
+                        for (int n = 1; n < potentialDuplicates.Count; n++)
                         {
                             scansWithDuplicates.Remove(potentialDuplicates[n]);
                         }
