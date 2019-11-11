@@ -1,18 +1,18 @@
-﻿// using NUnit.Framework;
-// using SnapperCodingChallenge.Core;
-// using System.Collections.Generic;
+﻿//using NUnit.Framework;
+//using SnapperCodingChallenge.Core;
+//using System.Collections.Generic;
 
-// namespace SnapperCodingChallenge.Core.Tests
-// {
-//     class ScannerTests
-//     {
-//         [SetUp]
-//         public void Setup()
-//         {
-//         }
+//namespace SnapperCodingChallenge.Core.Tests
+//{
+//    class ScannerTests
+//    {
+//        [SetUp]
+//        public void Setup()
+//        {
+//        }
 
-//         public char[,] snapperImageArray = new char[,]
-//         {
+//        private char[,] snapperImageArray = new char[,]
+//        {
 //               //  0   1   2   3   4   5   6   7
 //                 {' ','0',' ',' ',' ',' ','0','0'},  //0
 //                 {'0','0',' ',' ',' ',' ','0','0'},  //1
@@ -24,89 +24,97 @@
 //                 {' ',' ',' ',' ',' ',' ',' ',' '},  //7
 //                 {' ',' ',' ',' ',' ',' ',' ','0'},  //8
 //                 {' ',' ',' ',' ',' ',' ','0',' '},  //9
-//         };
+//        };
 
-//         public char[,] targetA = new char[,]
-//         {
+//        private char[,] targetA = new char[,]
+//        {
 //                 {'0','0'},
 //                 {'0','0'},
-//         };
+//        };
 
-//         public char[,] targetB = new char[,]
-//         {
+//        private char[,] targetB = new char[,]
+//        {
 //                 {' ',' ',' ','X'},
 //                 {' ','X','X','X'},
 //                 {' ','X','X','X'},
 //                 {'X','X','X','X'},
-//         };
+//        };
 
-//         [TestCase(0.75, 2)]
-//         [TestCase(1, 1)]
-//         public void Verify_Scanner_NumberOfIdentifiedTargetA(double minimumPrecision, int numberOfTargets)
-//         {
-//             var snapperImage = new SnapperImage("test", snapperImageArray);
-//             var target1 = new Target("targetA", targetA, ' ');
-//             var target2 = new Target("targetB", targetB, ' ');
+//        [TestCase(0.75, 2)]
+//        [TestCase(1, 1)]
+//        public void Verify_Scanner_NumberOfIdentifiedTargetA(double minimumPrecision, int numberOfTargets)
+//        {
+//            var snapperImage = new SnapperImage("test", snapperImageArray);
+//            var targetImageList = new List<TargetImage>()
+//            {
+//                 new TargetImage("targetA", targetA, ' '),
+//                 new TargetImage("targetB", targetB, ' '),
+//            };
+            
 
-//             var scanner = new Scanner(snapperImage, minimumPrecision);
+//            var snapperSolver = new SnapperSolver(snapperImage, targetImageList, minimumPrecision);
 
-//             scanner.ScanForTarget(target1);
-//             scanner.ScanForTarget(target2);
+//            int expected = numberOfTargets;
+//            int actual = snapperSolver.GetListOfScans().Count;
 
-//             var expected = numberOfTargets;
-//             var actual = scanner.GetListOfIdentifiedTargets(target1).Count;
+//            Assert.AreEqual(expected, actual);
+//        }
 
-//             Assert.AreEqual(expected, actual);
-//         }
+//        [TestCase(0.72, 1)]
+//        [TestCase(0.73, 0)]
+//        public void Verify_Scanner_NumberOfIdentifiedTargetB(double minimumPrecision, int numberOfTargets)
+//        {
+//            var snapperImage = new SnapperImage("test", snapperImageArray);
 
-//         [TestCase(0.72, 1)]
-//         [TestCase(0.73, 0)]
-//         public void Verify_Scanner_NumberOfIdentifiedTargetB(double minimumPrecision, int numberOfTargets)
-//         {
-//             var snapperImage = new SnapperImage("test", snapperImageArray);
-//             var target1 = new Target("targetA", targetA, ' ');
-//             var target2 = new Target("targetB", targetB, ' ');
+//            var targetImageList = new List<TargetImage>()
+//            {
+//                 new TargetImage("targetA", targetA, ' '),
+//                 new TargetImage("targetB", targetB, ' '),
+//            };
 
-//             var scanner = new Scanner(snapperImage, minimumPrecision);
+//            var target1 = new TargetImage("targetA", targetA, ' ');
+//            var target2 = new TargetImage("targetB", targetB, ' ');
 
-//             scanner.ScanForTarget(target1);
-//             scanner.ScanForTarget(target2);
+//            var scanner = new SnapperSolver(snapperImage, minimumPrecision);
 
-//             var expected = numberOfTargets;
-//             var actual = scanner.GetListOfIdentifiedTargets(target2).Count;
+//            scanner.ScanForTarget(target1);
+//            scanner.ScanForTarget(target2);
 
-//             Assert.AreEqual(expected, actual);
-//         }
+//            var expected = numberOfTargets;
+//            var actual = scanner.GetListOfIdentifiedTargets(target2).Count;
 
-//         [Test]
-//         public void Verify_Scanner_GlobalCoordinatesOfIdentifiedTargets()
-//         {
-//             var snapperImage = new SnapperImage("test", snapperImageArray);
-//             var target1 = new Target("targetA", targetA, ' ');
-//             var target2 = new Target("targetB", targetB, ' ');
+//            Assert.AreEqual(expected, actual);
+//        }
 
-//             var scanner = new Scanner(snapperImage, 0.7);
+//        [Test]
+//        public void Verify_Scanner_GlobalCoordinatesOfIdentifiedTargets()
+//        {
+//            var snapperImage = new SnapperImage("test", snapperImageArray);
+//            var target1 = new Target("targetA", targetA, ' ');
+//            var target2 = new Target("targetB", targetB, ' ');
 
-//             scanner.ScanForTarget(target1);
-//             scanner.ScanForTarget(target2);
+//            var scanner = new Scanner(snapperImage, 0.7);
 
-//             List<Scan> identifiedTargets = scanner.GetListOfIdentifiedTargets();
+//            scanner.ScanForTarget(target1);
+//            scanner.ScanForTarget(target2);
 
-//             var expected = new List<Coordinates>()
+//            List<Scan> identifiedTargets = scanner.GetListOfIdentifiedTargets();
+
+//            var expected = new List<Coordinates>()
 //             {
 //                 new Coordinates(0.5, 0.5),
 //                 new Coordinates(6.5, 0.5),
 //                 new Coordinates(3.5, 4.5),
 //             };
 
-//             var actual = new List<Coordinates>();
+//            var actual = new List<Coordinates>();
 
-//             foreach (Scan scan in identifiedTargets)
-//             {
-//                 actual.Add(scan.CentroidGlobalCoordinates);
-//             }
+//            foreach (Scan scan in identifiedTargets)
+//            {
+//                actual.Add(scan.CentroidGlobalCoordinates);
+//            }
 
-//             Assert.AreEqual(expected, actual);
-//         }
-//     }
-// }
+//            Assert.AreEqual(expected, actual);
+//        }
+//    }
+//}
