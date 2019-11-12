@@ -8,7 +8,7 @@ namespace SnapperCodingChallenge.Core
     /// </summary>
     public class Scan
     {
-        public Scan(SnapperImage snapperImage, TargetImage targetImage, int horizontalOffset, 
+        public Scan(ISnapperImage snapperImage, ITargetImage targetImage, int horizontalOffset, 
             int verticalOffset, double minimumConfidenceInTargetDetection)
         {
             SnapperImage = snapperImage;
@@ -23,12 +23,12 @@ namespace SnapperCodingChallenge.Core
         /// <summary>
         /// The snapper image to be scanned.
         /// </summary>
-        public SnapperImage SnapperImage { get; }
+        public ISnapperImage SnapperImage { get; }
 
         /// <summary>
         /// The target we are scanning for.
         /// </summary>
-        public TargetImage TargetImage { get; }
+        public ITargetImage TargetImage { get; }
 
         /// <summary>
         /// The horizontal offset from 0,0 for the snapper image which we're scanning for.
@@ -50,12 +50,12 @@ namespace SnapperCodingChallenge.Core
         /// <summary>
         /// The global coordinates of the centroid of the target slice.
         /// </summary>
-        public Coordinates CentroidGlobalCoordinates { get; set; }
+        public Coordinate CentroidGlobalCoordinates { get; set; }
 
         /// <summary>
         /// The global coordinates of the centroid of the target slice.
         /// </summary>
-        public Coordinates TopLHCornerGlobalCoordinates { get; set; }
+        public Coordinate TopLHCornerGlobalCoordinates { get; set; }
 
 
         /// <summary>
@@ -116,11 +116,11 @@ namespace SnapperCodingChallenge.Core
             char[,] slice = GetSubArrayFromArray
                 (SnapperImage.GridRepresentation, TargetImage.GridRepresentation, HorizontalOffset, VerticalOffset);
 
-            TopLHCornerGlobalCoordinates = new Coordinates(HorizontalOffset, VerticalOffset);
+            TopLHCornerGlobalCoordinates = new Coordinate(HorizontalOffset, VerticalOffset);
 
-            CentroidGlobalCoordinates = TargetImage.CalculateGlobalCoordinatesOfShapeCentroid(SnapperImage, HorizontalOffset, VerticalOffset);
+            CentroidGlobalCoordinates = TargetImage.CalculateGlobalCoordinatesOfShapeCentroid(TargetImage, HorizontalOffset, VerticalOffset);
 
-            foreach (Coordinates coordinate in TargetImage.InternalShapeCoordinatesOfTarget)
+            foreach (Coordinate coordinate in TargetImage.InternalShapeCoordinatesOfTarget)
             {
                 int x = Convert.ToInt32(coordinate.X);
                 int y = Convert.ToInt32(coordinate.Y);

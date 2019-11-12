@@ -1,4 +1,4 @@
-﻿minimumPrecision=0.60
+﻿minimumPrecision=0.70
 anyKeyToStartAnalysis=false
 
 ******EXPLANATION*******

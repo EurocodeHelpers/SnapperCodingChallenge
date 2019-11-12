@@ -8,7 +8,7 @@ namespace SnapperCodingChallenge.Core
 {
     public class SnapperSolver
     {
-        public SnapperSolver(SnapperImage snapperImage, List<TargetImage> targetImages, double minimumConfidenceInTargetDetection)
+        public SnapperSolver(ISnapperImage snapperImage, List<ITargetImage> targetImages, double minimumConfidenceInTargetDetection)
         {
             //Import snapper image, target images and minimumConfidenceInTargetDetection and minimumConfidenceInTargetDetection          
             this.SnapperImage = snapperImage;
@@ -16,13 +16,13 @@ namespace SnapperCodingChallenge.Core
             this.MinimumConfidenceInTargetDetection = minimumConfidenceInTargetDetection;
             
              //Perform initial scan for each targetImage 
-            foreach(TargetImage t in targetImages)
+            foreach(TargetImageTextFile t in targetImages)
             {
                 ScanForTarget(t);
             }           
 
             //Remove the duplicates 
-            foreach(TargetImage t in targetImages)
+            foreach(TargetImageTextFile t in targetImages)
             {
                 var scansWithRemovedDuplicatesForTarget = GetListOfNonDuplicateTargets(t);
                 _scansTargetFoundDuplicatesRemoved.AddRange(scansWithRemovedDuplicatesForTarget);
@@ -30,8 +30,8 @@ namespace SnapperCodingChallenge.Core
         }
 
         //Properties 
-        private SnapperImage SnapperImage { get; }
-        private List<TargetImage> TargetImages = new List<TargetImage>(); 
+        private ISnapperImage SnapperImage { get; }
+        private List<ITargetImage> TargetImages = new List<ITargetImage>(); 
         public double MinimumConfidenceInTargetDetection { get; }   
         private List<Scan> _rawScans = new List<Scan>();    
         private List<Scan> _scansTargetFoundDuplicatesRemoved = new List<Scan>();
@@ -42,13 +42,13 @@ namespace SnapperCodingChallenge.Core
            return _scansTargetFoundDuplicatesRemoved;
         }
 
-        private void ScanForTarget(TargetImage target)
+        private void ScanForTarget(TargetImageTextFile target)
         {
-            int snapperImageRows = SnapperImage.NumberOfRows;
-            int snapperImageColumns = SnapperImage.NumberOfColumns;
+            int snapperImageRows = SnapperImage.GridRepresentation.GetLength(0);
+            int snapperImageColumns = SnapperImage.GridRepresentation.GetLength(1); 
 
-            int targetRows = target.NumberOfRows;
-            int targetCols = target.NumberOfColumns;
+            int targetRows = target.GridRepresentation.GetLength(0);
+            int targetCols = target.GridRepresentation.GetLength(1);
 
             int maximumHorizontalOffset = snapperImageColumns - targetCols;
             int maximumVerticalOffset = snapperImageRows - targetRows;
@@ -63,17 +63,17 @@ namespace SnapperCodingChallenge.Core
             }
         }         
 
-        private List<Scan> GetListOfNonDuplicateTargets(TargetImage targetImage)
+        private List<Scan> GetListOfNonDuplicateTargets(TargetImageTextFile targetImage)
         {
             List<Scan> scansWithDuplicates = _rawScans.Where(scan => scan.TargetFound == true && scan.TargetImage.Name == targetImage.Name).ToList();
 
             // List<string> dump = new List<string>();
             //Note the dimensions of the SnapperImage and Target for conciseness
-            int snapperImageRows = SnapperImage.NumberOfRows;
-            int snapperImageColumns = SnapperImage.NumberOfColumns;
+            int snapperImageRows = SnapperImage.GridRepresentation.GetLength(0);
+            int snapperImageColumns= SnapperImage.GridRepresentation.GetLength(1);
 
-            int targetImageRows = targetImage.NumberOfRows;
-            int targetImageColumns = targetImage.NumberOfColumns;        
+            int targetImageRows = targetImage.GridRepresentation.GetLength(0);
+            int targetImageColumns = targetImage.GridRepresentation.GetLength(1);
 
             for (int i = 0; i < snapperImageRows - targetImageRows; i++)
             {
@@ -88,13 +88,13 @@ namespace SnapperCodingChallenge.Core
 
                     // dump.Add($"Scanning {i},{j}");
                     
-                    for (int k = 0; k < targetImage.NumberOfRows; k++)
+                    for (int k = 0; k < targetImageRows; k++)
                     {
-                        for (int m = 0; m < targetImage.NumberOfColumns; m++)
+                        for (int m = 0; m < targetImageColumns; m++)
                         {
                             int globalX = j + k;
                             int globalY = i + m;
-                            var globalCords = new Coordinates(globalX, globalY);
+                            var globalCords = new Coordinate(globalX, globalY);
 
                             //Look for any targets within targetsFound with matching coordinates, if so add to potentialDuplicates.
                             Scan scan =
@@ -133,55 +133,59 @@ namespace SnapperCodingChallenge.Core
             // File.AppendAllLines("dumpfiletxtNEW.txt", dump);
         }
 
-        public void WriteOutputFile(string filePath)
+        public void SummariseAnalysis(ILogger logger)
         {
-            var s = new StringBuilder();
-
-            s.AppendLine(@"***********************************************");
-            s.AppendLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
-            s.AppendLine(@"***********************************************");
-            s.AppendLine("");
-            s.AppendLine(@"Developed by: Peter Cox");
-            s.AppendLine(@"Brief by: Bruno Martins");
-            s.AppendLine(@"Github: https://github.com/EurocodeHelpers");
-            s.AppendLine("");
-            s.AppendLine("***Summary***");
-            s.AppendLine($"Date of analysis: {DateTime.Now}");
-            s.AppendLine($"Minimum confidence in target detection: {MinimumConfidenceInTargetDetection}");
-            s.AppendLine("");
-
             int totalNumberOfTargetsIdentified = GetListOfScans().Count;
-            s.AppendLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
+           logger.WriteLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
 
-            foreach (TargetImage t in TargetImages)
+            foreach (TargetImageTextFile t in TargetImages)
             {
-                s.AppendLine($"Number of {t.Name} detected = {_scansTargetFoundDuplicatesRemoved.Where(scan => scan.TargetImage.Name == t.Name)}");
+                logger.WriteLine($"Number of {t.Name}s detected = {_scansTargetFoundDuplicatesRemoved.Where(scan => scan.TargetImage.Name == t.Name).Count()}");
             }
-            s.AppendLine("");
+            logger.WriteBlankLine();
 
             foreach (Scan scan in _scansTargetFoundDuplicatesRemoved)
             {
-                s.AppendLine(scan.ScanSummary());
-            }
-
-            string output = s.ToString();
-
-            File.WriteAllText(filePath, output);
+                logger.WriteLine(scan.ScanSummary());
+            }           
         }
+
+        //public void SummariseAnalysis(ILogger logger)
+        //{
+        //    var s = new StringBuilder();
+
+        //    s.AppendLine(@"***********************************************");
+        //    s.AppendLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
+        //    s.AppendLine(@"***********************************************");
+        //    s.AppendLine("");
+        //    s.AppendLine(@"Developed by: Peter Cox");
+        //    s.AppendLine(@"Brief by: Bruno Martins");
+        //    s.AppendLine(@"Github: https://github.com/EurocodeHelpers");
+        //    s.AppendLine("");
+        //    s.AppendLine("***Summary***");
+        //    s.AppendLine($"Date of analysis: {DateTime.Now}");
+        //    s.AppendLine($"Minimum confidence in target detection: {MinimumConfidenceInTargetDetection}");
+        //    s.AppendLine("");
+
+        //    int totalNumberOfTargetsIdentified = GetListOfScans().Count;
+        //    s.AppendLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
+
+        //    foreach (TargetImage t in TargetImages)
+        //    {
+        //        s.AppendLine($"Number of {t.Name} detected = {_scansTargetFoundDuplicatesRemoved.Where(scan => scan.TargetImage.Name == t.Name)}");
+        //    }
+        //    s.AppendLine("");
+
+        //    foreach (Scan scan in _scansTargetFoundDuplicatesRemoved)
+        //    {
+        //        s.AppendLine(scan.ScanSummary());
+        //    }
+
+        //    string output = s.ToString();
+
+        //    File.WriteAllText(filePath, output);
+        //}
+
         
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }
