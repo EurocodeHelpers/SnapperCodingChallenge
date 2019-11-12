@@ -11,6 +11,11 @@ namespace SnapperCodingChallenge.Core.Logging
             Console.WriteLine(msg);
         }
 
+        public void Write(string msg)
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteLine(string msg)
         {
             Console.Write(msg);

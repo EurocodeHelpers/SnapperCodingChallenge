@@ -125,6 +125,7 @@ namespace SnapperCodingChallenge.Core
                 int x = Convert.ToInt32(coordinate.X);
                 int y = Convert.ToInt32(coordinate.Y);
 
+                //TODO Replace with Ternary Operator 
                 if (slice[x, y] == TargetImage.GridRepresentation[x, y])
                 {
                     Matches++;
