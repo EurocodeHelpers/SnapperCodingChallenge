@@ -5,5 +5,7 @@ namespace SnapperCodingChallenge.Core
         void WriteLine(string msg, bool withDateTime = false);
 
         void WriteBlankLine();
+
+        void ReadLine();
     }
 }

@@ -16,7 +16,8 @@ namespace SnapperCodingChallenge.Core
             this.HorizontalOffset = horizontalOffset;
             this.VerticalOffset = verticalOffset;
             MinimumConfidenceInTargetPrecision = minimumConfidenceInTargetPrecision;
-
+            CentroidGlobalCoordinates = ITargetImage.CalculateGlobalCoordinatesOfShapeCentroid(TargetImage, HorizontalOffset, VerticalOffset);
+            TopLHCornerGlobalCoordinates = new Coordinate(HorizontalOffset, VerticalOffset);
             ScanImageForTarget();
         }
 
@@ -115,10 +116,6 @@ namespace SnapperCodingChallenge.Core
             //Get a "Slice" of the SnapperImage based on a horiz+vert offset from (0,0) based on dimensions of target
             char[,] slice = GetSubArrayFromArray
                 (SnapperImage.GridRepresentation, TargetImage.GridRepresentation, HorizontalOffset, VerticalOffset);
-
-            TopLHCornerGlobalCoordinates = new Coordinate(HorizontalOffset, VerticalOffset);
-
-            CentroidGlobalCoordinates = ITargetImage.CalculateGlobalCoordinatesOfShapeCentroid(TargetImage, HorizontalOffset, VerticalOffset);
 
             foreach (Coordinate coordinate in TargetImage.InternalShapeCoordinatesOfTarget)
             {

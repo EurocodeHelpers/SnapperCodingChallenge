@@ -1,7 +1,8 @@
 ﻿namespace SnapperCodingChallenge.Core
 {
     /// <summary>
-    /// A class that models the snapper image as a 2D array of characters.
+    /// An array-based implementation of the ISnapperImage interface, in which the user 
+    /// directly specifies the array. 
     /// </summary>
     public class SnapperImageArray : ISnapperImage
     {
@@ -13,17 +14,17 @@
         }
 
         /// <summary>
-        /// The name of the snapper image e.g. TestData, Galaxy121 
+        /// The name of the SnapperImage e.g. TestData, Galaxy121 
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// The filepath of the textfile used to create the snapper image.
+        /// The filepath from which the SnapperImage is derived. 
         /// </summary>
         public string FilePath { get; }
 
         /// <summary>
-        /// The 2D multi-dimensional array that models the snapper image, used for the business logic.
+        /// The 2D multi-dimensional array that models the SnapperImage and used to perform the business logic. 
         /// </summary>
         public char[,] GridRepresentation { get; }        
     }

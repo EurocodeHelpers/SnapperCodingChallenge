@@ -25,7 +25,7 @@ namespace SnapperCodingChallenge.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        public Coordinate CalculateLocalCoordinatesOfShapeCentroid(char[,] gridRepresentation)
+        protected Coordinate CalculateLocalCoordinatesOfShapeCentroid(char[,] gridRepresentation)
         {
             int numberOfRows = GridRepresentation.GetLength(0);
             int numberOfColumns = GridRepresentation.GetLength(1);

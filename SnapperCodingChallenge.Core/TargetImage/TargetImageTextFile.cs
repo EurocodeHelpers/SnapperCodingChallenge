@@ -17,7 +17,8 @@ namespace SnapperCodingChallenge.Core
             this.FilePath = filePath;
             this.GridRepresentation = ConvertTextFileInto2DArray(filePath).TrimArray(blankCharacter);
             this.InternalShapeCoordinatesOfTarget = ITargetImage.CalculateCoordinatesInsidePerimeterOfObject(this, blankCharacter);
-
+            this.CentroidLocalCoordinates = CalculateLocalCoordinatesOfShapeCentroid();
+    
             bool targetOK = ITargetImage.VerifyTargetHasADefinedShape(InternalShapeCoordinatesOfTarget);
 
             if (!targetOK)
@@ -72,7 +73,7 @@ namespace SnapperCodingChallenge.Core
         /// 
         /// The "centroid" of the shape {x,y} from 0,0 square is 1.5,2.5
         /// </summary>
-        public Coordinate CentroidLocalCoordinates => CalculateLocalCoordinatesOfShapeCentroid();
+        public Coordinate CentroidLocalCoordinates { get; }
 
         /// <summary>
         /// Takes a textfile and converts it into a 2D array of characters.

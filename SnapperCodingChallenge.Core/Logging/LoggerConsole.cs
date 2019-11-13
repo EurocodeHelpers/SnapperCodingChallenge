@@ -36,5 +36,10 @@ namespace SnapperCodingChallenge.Core
                 Console.WriteLine(msg);
             }
         }
+
+        public void ReadLine()
+        {
+            Console.ReadLine();
+        }
     }
 }

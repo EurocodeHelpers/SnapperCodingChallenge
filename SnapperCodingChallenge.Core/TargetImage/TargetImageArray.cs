@@ -12,7 +12,7 @@ namespace SnapperCodingChallenge.Core
             this.GridRepresentation = array;
             this.InternalShapeCoordinatesOfTarget
                 = ITargetImage.CalculateCoordinatesInsidePerimeterOfObject(this, blankCharacter);
-
+            this.CentroidLocalCoordinates = CalculateLocalCoordinatesOfShapeCentroid(array);
             bool targetOK = ITargetImage.VerifyTargetHasADefinedShape(InternalShapeCoordinatesOfTarget);
 
             if (!targetOK)
@@ -36,5 +36,32 @@ namespace SnapperCodingChallenge.Core
         public Coordinate CentroidLocalCoordinates { get; }
 
         public List<Coordinate> InternalShapeCoordinatesOfTarget { get; }
+
+        /// <summary>
+        /// Returns the local co-ordinates of the target, for example:
+        /// 
+        /// Local coords {x,y} => 0.5,1.5
+        /// 
+        ///   0 1  x=> 
+        /// 0 X X
+        /// 1 X X 
+        /// 2 X X 
+        /// 3 X X 
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Coordinate CalculateLocalCoordinatesOfShapeCentroid(char[,] gridRepresentation)
+        {
+            int numberOfRows = GridRepresentation.GetLength(0);
+            int numberOfColumns = GridRepresentation.GetLength(1);
+
+            double numberOfColumnsDbl = Convert.ToDouble(numberOfColumns);
+            double numberOfRowsDbl = Convert.ToDouble(numberOfRows);
+
+            double x = (numberOfColumnsDbl - 1) / 2;
+            double y = (numberOfRowsDbl - 1) / 2;
+
+            return new Coordinate(x, y);
+        }
     }
 }

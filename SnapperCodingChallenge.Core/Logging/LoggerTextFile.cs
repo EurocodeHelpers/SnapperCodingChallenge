@@ -27,5 +27,10 @@ namespace SnapperCodingChallenge.Core
         {
             File.AppendAllText(_filePath, "");
         }
+
+        public void ReadLine()
+        {
+            File.AppendAllText(_filePath, "");
+        }
     }
 }

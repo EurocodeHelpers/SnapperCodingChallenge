@@ -9,7 +9,7 @@
         /// <summary>
         /// Returns a string describing the size of the snapper image in terms of a multi-dimensional character array/
         /// </summary>
-        void OutputSnapperImageInformation(ILogger logger)
+        void PrintSnapperImageInformation(ILogger logger)
         {
             logger.WriteBlankLine();
             logger.WriteLine($"Scanner Image Name = {Name}");

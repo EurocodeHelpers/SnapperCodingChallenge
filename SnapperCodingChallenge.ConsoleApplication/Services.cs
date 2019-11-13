@@ -7,8 +7,8 @@ using System.Text;
 namespace SnapperCodingChallenge.ConsoleApplication
 {
     /// <summary>
-    /// A class that deals with the concrete implementations of the TargetImage, SnapperImage and 
-    /// the Output File and Console Dump. 
+    /// A static container that injects concrete implementations of the TargetImage, SnapperImage, Logger, Output and Settings
+    /// Classes. 
     /// </summary>
     public static class Services
     {
@@ -26,7 +26,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
 
         //TODO - Change to private set
         public static ISnapperImage SnapperImage { get; private set; }
-        public static List<ITargetImage> TargetImages = new List<ITargetImage>();
+        public static List<ITargetImage> TargetImages { get; private set; }
         public static ILogger Logger { get; private set; }
         public static ILogger Output { get; private set; }
         public static ISettings Settings { get; private set; }
@@ -92,14 +92,16 @@ namespace SnapperCodingChallenge.ConsoleApplication
                 throw new InvalidProgramException("*ERROR* Invalid map data: directory must contain exactly 1 .blf file. ");
             }
 
-            foreach (string targetFile in targetImageFilePaths)
-            {
-                string targetName = Path.GetFileNameWithoutExtension(targetFile);
-                TargetImageTextFile t = new TargetImageTextFile(targetName, targetFile, blankCharacter);
+            var targetImages = new List<ITargetImage>();
 
-                //TODO: Work out why casting List<ITarget> to List<Target> doesnt work...
-                TargetImages.Add(t);
+            foreach (string targetImageTextFilePath in targetImageFilePaths)
+            {
+                string targetName = Path.GetFileNameWithoutExtension(targetImageTextFilePath);
+                TargetImageTextFile t = new TargetImageTextFile(targetName, targetImageTextFilePath, blankCharacter);
+                targetImages.Add(t);
             }
+
+            TargetImages = targetImages;
         }
 
         public static void InitialiseLogger(LoggerType type)

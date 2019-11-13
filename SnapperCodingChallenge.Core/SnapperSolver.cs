@@ -16,13 +16,13 @@ namespace SnapperCodingChallenge.Core
             this.MinimumConfidenceInTargetPrecision = minimumConfidenceInTargetPrecision;
             
              //Perform initial scan for each targetImage 
-            foreach(TargetImageTextFile t in targetImages)
+            foreach(ITargetImage t in targetImages)
             {
                 ScanForTarget(t);
             }           
 
             //Remove the duplicates 
-            foreach(TargetImageTextFile t in targetImages)
+            foreach(ITargetImage t in targetImages)
             {
                 var scansWithRemovedDuplicatesForTarget = GetListOfNonDuplicateTargets(t);
                 _scansTargetFoundDuplicatesRemoved.AddRange(scansWithRemovedDuplicatesForTarget);
@@ -42,7 +42,7 @@ namespace SnapperCodingChallenge.Core
            return _scansTargetFoundDuplicatesRemoved;
         }
 
-        private void ScanForTarget(TargetImageTextFile target)
+        private void ScanForTarget(ITargetImage target)
         {
             int snapperImageRows = SnapperImage.GridRepresentation.GetLength(0);
             int snapperImageColumns = SnapperImage.GridRepresentation.GetLength(1); 
@@ -63,7 +63,7 @@ namespace SnapperCodingChallenge.Core
             }
         }         
 
-        private List<Scan> GetListOfNonDuplicateTargets(TargetImageTextFile targetImage)
+        private List<Scan> GetListOfNonDuplicateTargets(ITargetImage targetImage)
         {
             List<Scan> scansWithDuplicates = _rawScans.Where(scan => scan.TargetFound == true && scan.TargetImage.Name == targetImage.Name).ToList();
 
@@ -134,7 +134,7 @@ namespace SnapperCodingChallenge.Core
            }
 
            int totalNumberOfTargetsIdentified = GetListOfScans().Count;
-           logger.WriteLine($"Minimum confidence in target detection: {MinimumConfidenceInTargetPrecision}");
+           logger.WriteLine($"Minimum confidence in target detection: {100*Math.Round(MinimumConfidenceInTargetPrecision, 2)}%");
            logger.WriteLine($"Total number of targets detected = {totalNumberOfTargetsIdentified}");
 
             foreach (TargetImageTextFile t in TargetImages)

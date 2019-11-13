@@ -11,24 +11,30 @@ namespace SnapperCodingChallenge.ConsoleApplication
     class Program
     {
         private const string dateTimeFormat = "yyyyMMdd_HHmm";
-        private static readonly string snapperConsoleLogFilePath = $"SAS Console Log {DateTime.Now.ToString(dateTimeFormat)}.txt";
+        private static readonly string snapperConsoleDumpFilePath = $"SAS Console Log {DateTime.Now.ToString(dateTimeFormat)}.txt";
 
-        static void Main(string[] args)
+        static void ConfigureServices()
         {
-            //1. Configure services 
             InitialiseSnapperImage(SnapperImageType.TextFile);
             InitialiseTargetImages(TargetImageType.TextFile);
             InitialiseLogger(LoggerType.Console);
             InitialiseOptions(OptionsType.TextFile);
             InitialiseOutput(OutputType.TextFile);
+        }
 
-            //2. Set up the object which will echo the console to a dumpfile to examine - use new C# 8 inline using statement.
-            using var cc = new EchoConsoleToTextFile(snapperConsoleLogFilePath);
+        static void Main(string[] args)
+        {
+            //1. Configure services container and inject the concrete dependencies. 
+            ConfigureServices();
+
+            //2. Using boilerplate stackoverflow code to echo the console to a dumpfile for record purposes - use new C# 8 using statement.
+            using var cc = new EchoConsoleToTextFile(snapperConsoleDumpFilePath);
 
             //3. Show introductory message                    
             Logger.WriteLine(@"***********************************************");
             Logger.WriteLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
             Logger.WriteLine(@"***********************************************");
+            Logger.WriteLine(@"Version: 1.1");
             Logger.WriteLine("");
             Logger.WriteLine(@"Developed by: Peter Cox");
             Logger.WriteLine(@"Brief by: Bruno Martins");
@@ -37,7 +43,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Logger.WriteLine("===============================================");
             Logger.WriteLine("");
 
-            //4. Setup options using options.txt
+            //4. Set options. 
             Logger.WriteLine($"***Setting Options***", true);
             Logger.WriteBlankLine();
             double minimumConfidenceInTargetPrecision = Settings.MinimumConfidenceInTargetDetection;
@@ -52,7 +58,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
 
             //5. Load the snapper image we will scan for targets. There must be exactly one .blf file in the ScannerImage directory which we will scan. 
             Logger.WriteLine("***Loading Snapper Image****", true);
-            Services.SnapperImage.OutputSnapperImageInformation(Logger);
+            Services.SnapperImage.PrintSnapperImageInformation(Logger);
             Logger.WriteLine("***Snapper Image successfully loaded.***", true);
 
             Logger.WriteBlankLine();
@@ -90,6 +96,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
 
             //11. Terminate program.
             Logger.WriteLine("Analysis complete.", true);
+            Logger.ReadLine();
         }
     }
 }
