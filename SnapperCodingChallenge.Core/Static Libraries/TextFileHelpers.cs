@@ -23,8 +23,6 @@ namespace SnapperCodingChallenge.Core
             //Open the text file and get an array of strings representing each line.
             string[] rows = File.ReadAllLines(filePath);
 
-            //TODO Handle cases where the text file contains irregularly long rows e.g. 
-
             //Set the dimensions of the 2D character array [rows,cols]
             int numberOfRows = rows.Length;
             int numberOfColumns = rows[0].Length;

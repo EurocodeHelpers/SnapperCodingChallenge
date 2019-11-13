@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SnapperCodingChallenge.Core.OOP.TargetImage
+namespace SnapperCodingChallenge.Core
 {
     public class TargetImageArray : ITargetImage
     {
@@ -12,6 +12,13 @@ namespace SnapperCodingChallenge.Core.OOP.TargetImage
             this.GridRepresentation = array;
             this.InternalShapeCoordinatesOfTarget
                 = ITargetImage.CalculateCoordinatesInsidePerimeterOfObject(this, blankCharacter);
+
+            bool targetOK = ITargetImage.VerifyTargetHasADefinedShape(InternalShapeCoordinatesOfTarget);
+
+            if (!targetOK)
+            {
+                throw new Exception("Target is not defined by a particular shape - please check input and try again.");
+            }
         }
 
         /// <summary>

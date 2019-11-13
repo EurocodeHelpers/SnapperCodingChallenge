@@ -9,13 +9,13 @@ namespace SnapperCodingChallenge.Core
     public class Scan
     {
         public Scan(ISnapperImage snapperImage, ITargetImage targetImage, int horizontalOffset, 
-            int verticalOffset, double minimumConfidenceInTargetDetection)
+            int verticalOffset, double minimumConfidenceInTargetPrecision)
         {
             SnapperImage = snapperImage;
             TargetImage = targetImage;
             this.HorizontalOffset = horizontalOffset;
             this.VerticalOffset = verticalOffset;
-            MinimumConfidenceInTargetDetection = minimumConfidenceInTargetDetection;
+            MinimumConfidenceInTargetPrecision = minimumConfidenceInTargetPrecision;
 
             ScanImageForTarget();
         }
@@ -43,7 +43,7 @@ namespace SnapperCodingChallenge.Core
         /// <summary>
         /// The minimum match in elements we need to determine a match e.g. 0.7 => 70% minimum match required.
         /// </summary>
-        public double MinimumConfidenceInTargetDetection { get; }
+        public double MinimumConfidenceInTargetPrecision { get; }
 
         //Properties
 
@@ -118,14 +118,13 @@ namespace SnapperCodingChallenge.Core
 
             TopLHCornerGlobalCoordinates = new Coordinate(HorizontalOffset, VerticalOffset);
 
-            CentroidGlobalCoordinates = TargetImage.CalculateGlobalCoordinatesOfShapeCentroid(TargetImage, HorizontalOffset, VerticalOffset);
+            CentroidGlobalCoordinates = ITargetImage.CalculateGlobalCoordinatesOfShapeCentroid(TargetImage, HorizontalOffset, VerticalOffset);
 
             foreach (Coordinate coordinate in TargetImage.InternalShapeCoordinatesOfTarget)
             {
                 int x = Convert.ToInt32(coordinate.X);
                 int y = Convert.ToInt32(coordinate.Y);
 
-                //TODO Replace with Ternary Operator 
                 if (slice[x, y] == TargetImage.GridRepresentation[x, y])
                 {
                     Matches++;
@@ -138,7 +137,7 @@ namespace SnapperCodingChallenge.Core
 
             ConfidenceInTargetDetection = Matches / (Matches + Differences);
 
-            TargetFound = (ConfidenceInTargetDetection >= MinimumConfidenceInTargetDetection) ? true : false;
+            TargetFound = (ConfidenceInTargetDetection >= MinimumConfidenceInTargetPrecision) ? true : false;
         }
 
         private char[,] GetSubArrayFromArray(char[,] mainArray, char[,] targetArray, int horizontalOffset, int verticalOffset)
