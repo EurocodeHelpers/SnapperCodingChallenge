@@ -41,8 +41,7 @@
 //        [Test]
 //        public void Verify_Target_Test1_ParsingTxtFile1()
 //        {
-//            //var originalArray = new char[,]
-//            //    {
+//            //    {Original Untrimmed Array}
 //            //             {'X','X','X','X','X','X','X','X','X','X','X'},
 //            //             {'X','X','X','X','X','X','X','X','X','X','X'},
 //            //             {'X','X','1','1','1','1','X','1','X','X','X'},
@@ -79,6 +78,7 @@
 //        {
 //            /*
 //             * 
+//            //{Original Untrimmed Array}
 //             * XXXXXXXXX
 //               XXXX1XXXX
 //               XXX111XXX
@@ -100,34 +100,12 @@
 //            var actual = target.GridRepresentation;
 
 //            Assert.AreEqual(expected, actual);
-//        }
-
-//        [Test]
-//        public void Verify_Target_Test1_ValidateNumberOfRows()
-//        {
-//            var target = new TargetImageTextFile("test1", targetArray, ' ');
-
-//            var expected = 6;
-//            var actual = target.NumberOfRows;
-
-//            Assert.AreEqual(expected, actual);
-//        }
-
-//        [Test]
-//        public void Verify_Target_Test1_ValidateNumberOfColumns()
-//        {
-//            var target = new TargetImageTextFile("test1", targetArray, ' ');
-
-//            var expected = 4;
-//            var actual = target.NumberOfColumns;
-
-//            Assert.AreEqual(expected, actual);
-//        }
+//        }     
 
 //        [Test]
 //        public void Verify_Target_Test1_ValidateInternalShapeCoodinatesOfTarget()
 //        {
-//            var target = new TargetImageTextFile("test1", targetArray, ' ');
+//            var target = new TargetImageArray("test1", targetArray, ' ');
 
 //            var expected = new List<Coordinate>()
 //             {
@@ -166,7 +144,7 @@
 //        [Test]
 //        public void Verify_Target_Test1_ValidateCentroidLocalCoordinates()
 //        {
-//            var target = new TargetImageTextFile("test1", targetArray, ' ');
+//            var target = new TargetImageArray("test1", targetArray, ' ');
 
 //            var expected = new Coordinate(1.5, 2.5);
 
@@ -179,7 +157,7 @@
 //        public void Verify_Target_Test1_ValidateGlobalCoodinates()
 //        {
 //            var snapper = new SnapperImageTextFile("map", snapperImageArray);
-//            var target = new TargetImageTextFile("test1", targetArray, ' ');
+//            var target = new TargetImageArray("test1", targetArray, ' ');
 
 //            var expected = new Coordinate(5.5, 7.5);
 

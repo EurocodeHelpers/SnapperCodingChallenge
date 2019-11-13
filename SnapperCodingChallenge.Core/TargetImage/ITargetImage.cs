@@ -9,7 +9,7 @@ namespace SnapperCodingChallenge.Core
         string Name { get; }
         string FilePath { get; }
         char[,] GridRepresentation { get; }
-        Coordinate CentroidLocalCoordinates { get; }
+        Coordinate CentroidLocalCoordinates => CalculateLocalCoordinatesOfShapeCentroid(GridRepresentation);
         List<Coordinate> InternalShapeCoordinatesOfTarget { get; }
 
         /// <summary>
@@ -25,10 +25,10 @@ namespace SnapperCodingChallenge.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        public static Coordinate CalculateLocalCoordinatesOfShapeCentroid(ITargetImage targetImage)
+        public Coordinate CalculateLocalCoordinatesOfShapeCentroid(char[,] gridRepresentation)
         {
-            int numberOfRows = targetImage.GridRepresentation.GetLength(0);
-            int numberOfColumns = targetImage.GridRepresentation.GetLength(1);
+            int numberOfRows = GridRepresentation.GetLength(0);
+            int numberOfColumns = GridRepresentation.GetLength(1);
 
             double numberOfColumnsDbl = Convert.ToDouble(numberOfColumns);
             double numberOfRowsDbl = Convert.ToDouble(numberOfRows);
@@ -59,9 +59,9 @@ namespace SnapperCodingChallenge.Core
         /// <param name="horizontalOffset">"Horizontal "distance" from (0,0) square.</param>
         /// <param name="verticalOffset">"Vertical "distance" from (0,0) square.</param>
         /// <returns></returns>
-        public static Coordinate CalculateGlobalCoordinatesOfShapeCentroid(ITargetImage snapperImage, double horizontalOffset, double verticalOffset)
+        public static Coordinate CalculateGlobalCoordinatesOfShapeCentroid(ITargetImage targetImage, double horizontalOffset, double verticalOffset)
         {
-            return new Coordinate(horizontalOffset + snapperImage.CentroidLocalCoordinates.X, verticalOffset + snapperImage.CentroidLocalCoordinates.Y);
+            return new Coordinate(horizontalOffset + targetImage.CentroidLocalCoordinates.X, verticalOffset + targetImage.CentroidLocalCoordinates.Y);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SnapperCodingChallenge.Core
         /// Would return (0,2), (1,1), (1,3), (1,5), (2,0),(2,1),(2,2),(2,3),(2,4),
         /// </summary>
         /// <param name="coords">The coordinates that define the internal area of the shape within the 2D Array</param>
-        public static List<Coordinate> CalculateCoordinatesInsidePerimeterOfObject(ITargetImage targetImage, char blankCharacter)
+        protected static List<Coordinate> CalculateCoordinatesInsidePerimeterOfObject(ITargetImage targetImage, char blankCharacter)
         {
             var coords = new List<Coordinate>();
             var array = targetImage.GridRepresentation;
@@ -107,6 +107,18 @@ namespace SnapperCodingChallenge.Core
             }
 
             return coords;
+        }
+
+        protected static bool VerifyTargetHasADefinedShape(List<Coordinate> internalShapeCoordinatesOfTarget)
+        {
+            if (internalShapeCoordinatesOfTarget.Count > 0 || internalShapeCoordinatesOfTarget == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void PrintTargetInformation(ILogger logger)

@@ -3,9 +3,9 @@ using System.IO;
 
 namespace SnapperCodingChallenge.Core
 {
-    public class OptionsTextFile : IOptions
+    public class SettingsTextFile : ISettings
     {
-        public OptionsTextFile(string optionsFilePath)
+        public SettingsTextFile(string optionsFilePath)
         {
             bool fileExists = File.Exists(optionsFilePath);
 

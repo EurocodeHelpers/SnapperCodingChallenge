@@ -17,6 +17,13 @@ namespace SnapperCodingChallenge.Core
             this.FilePath = filePath;
             this.GridRepresentation = ConvertTextFileInto2DArray(filePath).TrimArray(blankCharacter);
             this.InternalShapeCoordinatesOfTarget = ITargetImage.CalculateCoordinatesInsidePerimeterOfObject(this, blankCharacter);
+
+            bool targetOK = ITargetImage.VerifyTargetHasADefinedShape(InternalShapeCoordinatesOfTarget);
+
+            if (!targetOK)
+            {
+                throw new Exception("Target is not defined by a particular shape - please check input and try again.");
+            }
         }
 
         /// <summary>
@@ -125,6 +132,8 @@ namespace SnapperCodingChallenge.Core
 
             return new Coordinate(x, y);
         }
+
+        
 
        
 

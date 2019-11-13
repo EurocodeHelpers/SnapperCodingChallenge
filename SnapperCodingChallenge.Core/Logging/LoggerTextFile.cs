@@ -11,14 +11,16 @@ namespace SnapperCodingChallenge.Core
         }
         private string _filePath;
 
-        public void Write(string msg, bool withDateTime)
-        {
-            File.AppendAllText(_filePath, $"{DateTime.Now} {msg}");
-        }
-
         public void WriteLine(string msg, bool withDateTime)
         {
-            File.AppendAllText(_filePath, $"{DateTime.Now} {msg}");
+            if (withDateTime)
+            {
+                File.AppendAllText(_filePath, $"{DateTime.Now} {msg} + {Environment.NewLine}");
+            }
+            else
+            {
+                File.AppendAllText(_filePath, $"{msg} {Environment.NewLine}");
+            }
         }
 
         public void WriteBlankLine()

@@ -18,7 +18,11 @@ namespace SnapperCodingChallenge.ConsoleApplication
 
     public enum LoggerType
     {
-        Console,
+        Console
+    }
+
+    public enum OutputType
+    {
         TextFile
     }
 

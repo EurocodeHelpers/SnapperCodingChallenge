@@ -20,11 +20,12 @@ namespace SnapperCodingChallenge.ConsoleApplication
             InitialiseTargetImages(TargetImageType.TextFile);
             InitialiseLogger(LoggerType.Console);
             InitialiseOptions(OptionsType.TextFile);
+            InitialiseOutput(OutputType.TextFile);
 
-            //1. Set up the object which will echo the console to a dumpfile to examine - use new C# 8 inline using statement.
+            //2. Set up the object which will echo the console to a dumpfile to examine - use new C# 8 inline using statement.
             using var cc = new EchoConsoleToTextFile(snapperConsoleLogFilePath);
 
-            //2. Show introductory message                    
+            //3. Show introductory message                    
             Logger.WriteLine(@"***********************************************");
             Logger.WriteLine(@"* WELCOME TO THE SNAPPER ANALYSIS SYSTEM (SAS)*");
             Logger.WriteLine(@"***********************************************");
@@ -36,7 +37,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Logger.WriteLine("===============================================");
             Logger.WriteLine("");
 
-            //3. Setup options using options.txt
+            //4. Setup options using options.txt
             Logger.WriteLine($"***Setting Options***", true);
             Logger.WriteBlankLine();
             double minimumConfidenceInTargetPrecision = Settings.MinimumConfidenceInTargetDetection;
@@ -49,7 +50,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Logger.WriteLine("===============================================");
             Logger.WriteBlankLine();
 
-            //3. Load the snapper image we will scan for targets. There must be exactly one .blf file in the ScannerImage directory which we will scan. 
+            //5. Load the snapper image we will scan for targets. There must be exactly one .blf file in the ScannerImage directory which we will scan. 
             Logger.WriteLine("***Loading Snapper Image****", true);
             Services.SnapperImage.OutputSnapperImageInformation(Logger);
             Logger.WriteLine("***Snapper Image successfully loaded.***", true);
@@ -58,7 +59,7 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Logger.WriteLine("===============================================");
             Logger.WriteBlankLine();
 
-            //4. Loading the target images we will scan the snapper image for.
+            //6. Loading the target images we will scan the snapper image for.
             Logger.WriteLine("***Loading Targets****", true);
             foreach (ITargetImage t in TargetImages)
             {
@@ -71,51 +72,25 @@ namespace SnapperCodingChallenge.ConsoleApplication
             Logger.WriteLine("===============================================");
             Logger.WriteBlankLine();
 
-            //5. Echo to console that we are now scanning for targets...
+            //7. Echo to console that we are now scanning for targets...
             Logger.WriteBlankLine();
             Logger.WriteLine("Now scanning for targets....", true);
             Logger.WriteBlankLine();
             Logger.WriteLine("Scanning complete.", true);
             Logger.WriteBlankLine();
 
-            //6. Scan for each target...
+            //8. Scan for each target...
             SnapperSolver snapperSolver = new SnapperSolver(Services.SnapperImage, Services.TargetImages, minimumConfidenceInTargetPrecision);
 
-            //7. Write output to console.
-            snapperSolver.SummariseAnalysis(Logger);
+            //9. Write output to console.
+            snapperSolver.SummariseAnalysis(Logger, false);
 
-            //7. Write to output file.
+            //10. Write to output file.
+            snapperSolver.SummariseAnalysis(Output, true);
+
+            //11. Terminate program.
             Logger.WriteLine("Analysis complete.", true);
         }
-
-     
-
-       
-
-        //public static List<TargetImage> GetListOfTargetsAndEnsureTheyHaveADefinedShape(string[] targetsFilePath)
-        //{
-        //    var targets = new List<TargetImage>();
-        //    foreach (string s in targetsFilePath)
-        //    {
-        //        var t = new TargetImage(Path.GetFileNameWithoutExtension(s), s, blankCharacter);
-        //        targets.Add(t);
-
-        //        if (t.InternalShapeCoordinatesOfTarget.Count == 0)
-        //        {
-        //            Console.WriteLine($"{DateTime.Now} *ERROR* Invalid target {t.Name}: file not defined by a shape.");
-        //            Console.WriteLine($"{DateTime.Now} *ERROR* Please check input and restart the program to proceed.");
-        //        }
-        //        else
-        //        {
-        //            PrintTargetInformation(t);
-        //            Console.WriteLine();
-        //        }
-        //    }
-
-        //    return targets;
-        //}
-
-    
     }
 }
 

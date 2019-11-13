@@ -1,6 +1,6 @@
 ﻿namespace SnapperCodingChallenge.Core
 {
-    public interface IOptions
+    public interface ISettings
     {
         double MinimumConfidenceInTargetDetection { get; }
     }

@@ -3,17 +3,9 @@
     /// <summary>
     /// A class that models the snapper image as a 2D array of characters.
     /// </summary>
-    public class SnapperImageTextFile : ISnapperImage
+    public class SnapperImageArray : ISnapperImage
     {
-        public SnapperImageTextFile(string name, string filePath)
-        {
-            this.Name = name;
-            this.FilePath = filePath;
-            this.GridRepresentation = TextFileHelpers.ConvertTxtFileInto2DArray(filePath);
-        }
-
-        //TODO - move to new class.
-        public SnapperImageTextFile(string name, char[,] array)
+        public SnapperImageArray(string name, char[,] array)
         {
             this.Name = name;
             this.FilePath = "N/A";
